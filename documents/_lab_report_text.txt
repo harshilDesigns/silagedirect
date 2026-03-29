@@ -1,0 +1,226 @@
+--- PAGE 1 ---
+■ SilageDirect
+ NUTRITIONAL ANALYSIS REPORT
+ Feed Quality Certificate — Maize Silage
+Report No.
+SD-LAB-2025-0847
+Sample Received
+20 Sep 2025
+Batch ID
+PRO100-SEP25-B12
+Analysis Date
+22 Sep 2025
+Product
+Maize Silage Bale — Pro 100
+(100kg)
+Report Date
+23 Sep 2025
+Harvest Date
+18 Sep 2025
+Lab Reference
+NABL/2025/4471
+OVERALL RESULT
+ ✓ MEETS QUALITY
+ STANDARDS
+ Fermentation: GOOD | Stability: STABLE
+ | Safety: PASS
+1. Proximate Analysis (As-Fed Basis)
+Parameter
+Unit
+Result
+Typical Range
+Status
+Dry Matter (DM)
+% as-fed
+34.8
+30.0 – 38.0
+PASS
+Moisture
+% as-fed
+65.2
+62.0 – 70.0
+PASS
+Crude Protein (CP)
+% DM
+8.9
+7.0 – 10.5
+PASS
+Neutral Detergent Fibre (NDF)
+% DM
+44.2
+38.0 – 52.0
+PASS
+Acid Detergent Fibre (ADF)
+% DM
+24.8
+20.0 – 30.0
+PASS
+Starch
+% DM
+33.1
+28.0 – 38.0
+PASS
+Crude Fat (EE)
+% DM
+3.4
+2.5 – 4.5
+PASS
+Crude Ash
+% DM
+3.8
+3.0 – 5.5
+PASS
+Metabolisable Energy (ME)
+MJ/kg DM
+11.4
+10.5 – 12.5
+PASS
+Net Energy Lactation (NEL)
+MJ/kg DM
+6.8
+6.2 – 7.5
+PASS
+2. Fermentation Quality Analysis
+Parameter
+Unit
+Result
+Acceptable Range
+Status
+pH
+—
+3.9
+3.5 – 4.2
+PASS
+Lactic Acid
+% DM
+5.8
+4.0 – 8.0
+PASS
+Acetic Acid
+% DM
+1.9
+0.5 – 3.0
+PASS
+Propionic Acid
+% DM
+0.12
+< 0.5
+PASS
+Butyric Acid
+% DM
+< 0.01
+< 0.10
+PASS
+Ammonia-N (NH3-N)
+% of Total N
+5.2
+< 10.0
+PASS
+Lactic:Acetic Ratio
+—
+3.1
+> 2.0
+PASS
+Water Activity (Aw)
+—
+0.97
+0.94 – 0.99
+PASS
+Fermentation Profile: Predominantly lactic acid fermentation with minimal acetic acid. Butyric acid below detection limit — no
+clostridial activity. Low ammonia-N confirms minimal protein degradation. Overall fermentation quality: EXCELLENT.
+
+
+--- PAGE 2 ---
+3. Physical Characteristics & Hygiene Assessment
+Parameter
+Observation / Result
+Standard
+Status
+Colour
+Yellow-green, uniform
+Yellow to olive green
+PASS
+Odour
+Pleasant, mild acidic
+Fruity/acidic, no foul odour
+PASS
+Texture
+Chop length 8–12 mm
+6–15 mm theoretical chop
+PASS
+Visible Mould
+None detected
+Absent
+PASS
+Foreign Material
+None detected
+Absent
+PASS
+Wrapping Integrity
+6 layers, no punctures
+Min 4 layers
+PASS
+Aerobic Stability
+> 120 hours
+> 72 hours
+PASS
+Total Plate Count
+< 10,000 cfu/g
+< 50,000 cfu/g
+PASS
+Yeast & Mould Count
+< 500 cfu/g
+< 5,000 cfu/g
+PASS
+4. Feeding Recommendations
+Animal Category
+Recommended Inclusion
+Expected Benefit
+Milking Cows (HF/Jersey)
+8 – 12 kg/head/day
+Supports 18–22 L milk/day; improves milk fat %
+Dry Cows
+4 – 6 kg/head/day
+Body condition maintenance; rumen conditioning
+Heifers (12–24 months)
+3 – 5 kg/head/day
+Frame growth; rumen development
+Calves (> 4 months)
+1 – 2 kg/head/day
+Introduction to forage; rumen training
+Buffalo (Milking)
+10 – 14 kg/head/day
+Supports 8–12 L milk/day; improves digestibility
+Note: Inclusion rates are indicative. Adjust based on animal body weight, milk yield targets, and total ration composition. Introduce
+silage gradually over 7–10 days. Ensure fresh water is always available.
+5. Storage & Handling Guidelines
+Storage Temperature
+Store below 35°C. Avoid direct sunlight on wrapping.
+Shelf Life (Sealed)
+12 months from harvest date under proper storage conditions.
+After Opening
+Use within 2–3 days. Reseal cut face tightly after each feeding.
+Wrapping Damage
+Inspect for punctures before use. Patch immediately with silage repair tape.
+Feeding Area
+Remove uneaten silage within 4 hours in hot weather (> 30°C).
+Signs of Spoilage
+Discard if black/grey colour, butyric odour, or extensive mould growth.
+Analysed By
+Verified By
+Laboratory
+Dr. Kavita Sharma
+Harshil Barot
+NABL Accredited
+M.Sc. Animal Nutrition, PhD
+Farm Head & Quality Control
+Cert. No: NABL/2025/4471
+Feed Quality Assurance — SilageDirect
+SilageDirect, Mehsana, Gujarat
+Report valid for 12 months
+ SilageDirect | Mehsana, Gujarat — 384001 | +91 97270 07431 | harshilbarot667@gmail.com
+
+
+--- PAGE 3 ---
+This report is issued for the specific batch identified above. Results apply to the tested sample only. SilageDirect reserves the right to re-test in case of
+ dispute. This document is the property of SilageDirect and may not be reproduced without written permission. Report No. SD-LAB-2025-0847.
