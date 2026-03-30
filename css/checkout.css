@@ -63,22 +63,30 @@ main{padding:2.5rem 0 4rem}
 .fg{display:flex;flex-direction:column;gap:.35rem}
 .fg label{font-size:.76rem;color:var(--muted);font-weight:700;letter-spacing:.04em;text-transform:uppercase}
 .fg input, .fg select, .fg textarea {
+  display:block;
+  width:100%;
+  min-width:0;
+  min-height:48px;
+  padding:.78rem 1rem;
+  border-radius:10px;
+  font:inherit;
   background: #F7F0E3;
   border: 1px solid rgba(139,90,43,.3);
   color: var(--cream);
 }
 .fg input:focus, .fg select:focus, .fg textarea:focus {
+  outline:none;
   border-color: var(--lime);
   background: rgba(200,114,10,.06);
   box-shadow: 0 0 0 3px rgba(200,114,10,.1);
 }
-.fg textarea{resize:vertical;min-height:70px}
+.fg textarea{resize:vertical;min-height:108px}
 
 /* PLACE ORDER BUTTON */
-.btn-place-order{width:100%;padding:1rem;background:var(--lime);color:var(--bg);border:none;border-radius: 10px;font:700 1.05rem var(--h);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:.5rem;transition:.22s;margin-top:.4rem}
+.btn-place-order{width:100%;min-height:48px;padding:.78rem 1rem;background:var(--lime);color:var(--bg);border:none;border-radius: 10px;font:700 1.05rem var(--h);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:.18rem;transition:.22s;margin-top:.4rem}
 .btn-place-order:hover{background:transparent;color:var(--lime);border:2px solid var(--lime)}
 .btn-place-order:disabled{opacity:.6;cursor:not-allowed}
-.btn-arrow{font-size:1.1rem}
+.btn-arrow{font-size:1.1rem;margin-left:.08rem}
 
 /* STATUS MESSAGES */
 .form-msg{margin-top:.8rem;padding:.75rem 1rem;border-radius:10px;font-size:.9rem;display:none;line-height:1.5}

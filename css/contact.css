@@ -110,18 +110,38 @@ section.page-hero + section{padding-top:6.5rem}
 .fg{display:flex;flex-direction:column;gap:.35rem}
 .fg label{font-size:.78rem;color:var(--muted);font-weight:700;letter-spacing:.04em;text-transform:uppercase}
 .fg input, .fg select, .fg textarea {
+  display:block;
+  width:100%;
+  min-width:0;
+  min-height:48px;
+  padding:.78rem 1rem;
+  border-radius:10px;
+  font:inherit;
   background: #F7F0E3;
   border: 1px solid rgba(139,90,43,.3);
   color: var(--cream);
 }
 .fg input:focus, .fg select:focus, .fg textarea:focus {
+  outline:none;
   border-color: var(--lime);
   background: rgba(200,114,10,.06);
   box-shadow: 0 0 0 3px rgba(200,114,10,.1);
 }
 .fg select option { background: #F7F0E3; color: #1C1409; }
-.fg textarea{resize:vertical;min-height:90px}
-.form-submit{width:100%;justify-content:center;padding:.85rem;font-size:1rem;margin-top:.3rem}
+.fg textarea{resize:vertical;min-height:108px}
+.form-submit{
+  width:100%;
+  min-height:48px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:.18rem;
+  text-align:center;
+  padding:.78rem 1rem;
+  font-size:1rem;
+  margin-top:.3rem
+}
+.form-submit span:last-child{margin-left:.08rem}
 .form-msg{margin-top:.8rem;padding:.7rem 1rem;border-radius:10px;font-size:.9rem;display:none}
 .form-msg.ok{display:block;background:rgba(232,160,32,.12);border:1px solid rgba(232,160,32,.4);color:var(--lime)}
 .form-msg.err{display:block;background:rgba(255,80,80,.1);border:1px solid rgba(255,80,80,.3);color:#ff8080}
