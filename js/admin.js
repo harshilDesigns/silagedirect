@@ -1,5 +1,5 @@
 // ─────────────────────────────────────────────
-//  admin.js  —  SilageDirect
+//  admin.js  —  GauVardhan Feed
 //
 //  LEARNING: This file does 3 things:
 //  1. Password gate (simple, client-side)
@@ -108,7 +108,7 @@ function renderTable() {
         <td class="actions-cell">
           ${order.status === "pending" ? `<button class="action-btn confirm-btn" data-id="${order.id}">✓ Confirm</button>` : ""}
           ${order.status === "confirmed" ? `<button class="action-btn deliver-btn" data-id="${order.id}">✓ Delivered</button>` : ""}
-          <a href="https://wa.me/${order.phone?.replace(/\D/g,'')}?text=${encodeURIComponent(`Hi ${order.name}, your SilageDirect order is confirmed. We'll deliver to ${order.address} soon.`)}" target="_blank" class="action-btn wa-btn">💬 WA</a>
+          <a href="https://wa.me/${order.phone?.replace(/\D/g,'')}?text=${encodeURIComponent(`Hi ${order.name}, your GauVardhan Feed order from Gokul Biotech Pvt Ltd is confirmed. We'll deliver to ${order.address} soon.`)}" target="_blank" class="action-btn wa-btn">💬 WA</a>
         </td>
       </tr>
     `;

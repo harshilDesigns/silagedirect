@@ -1,5 +1,5 @@
 ﻿// ------------------------------------------------
-//  checkout.js — SilageDirect
+//  checkout.js — GauVardhan Feed
 //
 //  LEARNING: This file does 3 things:
 //  1. Reads the cart from localStorage and renders it
@@ -184,7 +184,8 @@ document.getElementById("place-order").onclick = async () => {
     // Send WhatsApp alert to you
     const itemsList = cart.map(i => `• ${i.name} × ${i.qty} = ₹${(i.price * i.qty).toLocaleString("en-IN")}`).join("\n");
     const waMessage = encodeURIComponent(
-      `🌾 NEW ORDER — SilageDirect\n` +
+      `🌾 NEW ORDER — GauVardhan Feed\n` +
+      `Company: Gokul Biotech Pvt Ltd\n` +
       `Order ID: ${orderRef.id}\n\n` +
       `👤 ${name}\n` +
       `📞 ${phone}\n` +

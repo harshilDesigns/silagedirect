@@ -1,5 +1,6 @@
 {
   "codegpt.provider": "ollama",
   "codegpt.apiBase": "http://127.0.0.1:11434",
-  "codegpt.model": "deepseek-coder:6.7b"
+  "codegpt.model": "deepseek-coder:6.7b",
+  "liveServer.settings.port": 5501
 }

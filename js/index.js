@@ -15,7 +15,7 @@ const t = {
         tes: { t: "Trusted by Progressive Farmers", i: [["Ramesh Patel", "Patel Dairy, Anand", "Delivery timing is exact. Milk response improved in one week."], ["Sandeep Yadav", "Balaji Farm, Alwar", "Specs match what was promised. No moisture surprises."], ["Manoj Chauhan", "Shiv Cattle Unit, Mehsana", "We shifted fully to 700kg bales. Operations are smoother now."]] },
         faq: { t: "Frequently Asked Questions", i: [["What is the minimum order?", "Minimum dispatch starts from 12 bales, based on route."], ["Can I schedule split deliveries?", "Yes. We stagger drop-offs to match your feed cycle."], ["100kg vs 700kg, what should I choose?", "100kg fits manual handling; 700kg suits bigger daily consumption."], ["Do you provide lab report for each lot?", "Yes, lot-linked nutritional summary is shared with each confirmed order."]] },
         form: { t: "Get in Touch. We'll Call You Back.", sub: "Fill the form and we'll get back to you within 2 hours. Or just tap WhatsApp below for an instant reply.", wa: "Chat Directly on WhatsApp", boxT: "Send Us Your Requirement", fname: "Your Name", fphone: "Phone Number", fvillage: "Village / Town", fbales: "How Many Bales?", fsel: "Select quantity", fmsg: "Any message (optional)", fsend: "Send Enquiry", ok: "✅ Sent! We'll call you back within 2 hours.", err: "Please fill in your name and phone number." },
-        f: { t: "Links & Contact", tag: "Premium maize silage, direct to farms that care about consistency.", call: "Call: +91 97270 07431", mail: "Email: harshilbarot667@gmail.com", h: "Mon–Sat, 6:00 AM – 8:00 PM", c: "© 2026 SilageDirect. All rights reserved." }
+        f: { t: "Links & Contact", tag: "GauVardhan Feed by Gokul Biotech Pvt Ltd. Premium maize silage, direct to farms that care about consistency.", call: "Call: +91 97270 07431", mail: "Email: harshilbarot667@gmail.com", h: "Mon–Sat, 6:00 AM – 8:00 PM", c: "© 2026 GauVardhan Feed. A brand of Gokul Biotech Pvt Ltd." }
       },
       hi: {
         nav: { home: "होम", products: "उत्पाद", about: "हमारे बारे में", contact: "संपर्क", cart: "कार्ट" },
@@ -29,7 +29,7 @@ const t = {
         tes: { t: "प्रगतिशील किसानों का भरोसा", i: [["रमेश पटेल", "पटेल डेयरी, आनंद", "डिलीवरी समय बिल्कुल सही। एक हफ्ते में दूध उत्पादन बेहतर हुआ।"], ["संदीप यादव", "बालाजी फार्म, अलवर", "स्पेक्स वैसे ही मिले जैसे वादा था। नमी में कोई चौंक नहीं।"], ["मनोज चौहान", "शिव कैटल यूनिट, मेहसाणा", "हम पूरी तरह 700kg बेल पर शिफ्ट हो गए। काम आसान हो गया।"]] },
         faq: { t: "अक्सर पूछे जाने वाले सवाल", i: [["न्यूनतम ऑर्डर क्या है?", "न्यूनतम डिस्पैच 12 बेल से शुरू होता है, रूट के आधार पर।"], ["क्या मैं स्प्लिट डिलीवरी शेड्यूल कर सकता हूं?", "हाँ। हम आपके फीड साइकिल के अनुसार डिलीवरी करते हैं।"], ["100kg या 700kg, क्या चुनूं?", "100kg मैनुअल हैंडलिंग के लिए; 700kg बड़ी दैनिक खपत के लिए।"], ["क्या हर लॉट के लिए लैब रिपोर्ट मिलती है?", "हाँ, हर कन्फर्म्ड ऑर्डर के साथ लॉट-लिंक्ड रिपोर्ट शेयर की जाती है।"]] },
         form: { t: "संपर्क करें। हम कॉल करेंगे।", sub: "फॉर्म भरें और हम 2 घंटे में वापस आएंगे। या नीचे WhatsApp टैप करें।", wa: "WhatsApp पर सीधे चैट करें", boxT: "अपनी ज़रूरत भेजें", fname: "आपका नाम", fphone: "फोन नंबर", fvillage: "गाँव / शहर", fbales: "कितनी बेल चाहिए?", fsel: "मात्रा चुनें", fmsg: "कोई संदेश (वैकल्पिक)", fsend: "एन्क्वायरी भेजें", ok: "✅ भेज दिया! हम 2 घंटे में कॉल करेंगे।", err: "कृपया नाम और फोन नंबर भरें।" },
-        f: { t: "लिंक्स और संपर्क", tag: "स्थिरता को प्राथमिकता देने वाले फार्म के लिए प्रीमियम मकई साइलेज।", call: "कॉल: +91 97270 07431", mail: "ईमेल: harshilbarot667@gmail.com", h: "सोम–शनि, सुबह 6:00 – रात 8:00", c: "© 2026 SilageDirect. सर्वाधिकार सुरक्षित।" }
+        f: { t: "लिंक्स और संपर्क", tag: "GauVardhan Feed, Gokul Biotech Pvt Ltd का ब्रांड है। स्थिरता को प्राथमिकता देने वाले फार्म के लिए प्रीमियम मकई साइलेज।", call: "कॉल: +91 97270 07431", mail: "ईमेल: harshilbarot667@gmail.com", h: "सोम–शनि, सुबह 6:00 – रात 8:00", c: "© 2026 GauVardhan Feed. Gokul Biotech Pvt Ltd का ब्रांड।" }
       },
       gu: {
         nav: { home: "હોમ", products: "ઉત્પાદનો", about: "અમારા વિશે", contact: "સંપર્ક", cart: "કાર્ટ" },
@@ -43,7 +43,7 @@ const t = {
         tes: { t: "પ્રગતિશીલ ખેડૂતો દ્વારા વિશ્વાસપાત્ર", i: [["રમેશ પટેલ", "પટેલ ડેરી, આણંદ", "ડિલિવરી સમય એકદમ સચોટ. એક અઠવાડિયામાં દૂધ ઉત્પાદન સુધર્યું."], ["સંદીપ યાદવ", "બાલાજી ફાર્મ, અલ્વર", "સ્પેક્સ વચન મુજબ. ભેજમાં કોઈ આશ્ચર્ય નહીં."], ["મનોજ ચૌહાણ", "શિવ કેટલ યુનિટ, મહેસાણા", "અમે સંપૂર્ણ 700kg બેલ પર શિફ્ટ થઈ ગયા. ઓપરેશન સરળ થઈ ગયું."]] },
         faq: { t: "વારંવાર પૂછાતા પ્રશ્નો", i: [["લઘુત્તમ ઓર્ડર શું છે?", "લઘુત્તમ ડિસ્પેચ 12 બેલથી શરૂ થાય છે, રૂટ પ્રમાણે."], ["શું હું સ્પ્લિટ ડિલિવરી શેડ્યૂલ કરી શકું?", "હા. અમે તમારા ફીડ સાઈકલ અનુસાર ડિલિવરી ગોઠવીએ છીએ."], ["100kg કે 700kg, શું પસંદ કરું?", "100kg મેન્યુઅલ હેન્ડલિંગ માટે; 700kg મોટી દૈનિક વપરાશ માટે."], ["શું દરેક લોટ માટે લેબ રિપોર્ટ મળે છે?", "હા, દરેક કન્ફર્મ્ડ ઓર્ડર સાથે લોટ-લિંક્ડ રિપોર્ટ શેર થાય છે."]] },
         form: { t: "સંપર્ક કરો. અમે કૉલ કરીશું.", sub: "ફોર્મ ભરો અને અમે 2 કલાકમાં પાછા આવીશું. અથવા નીચે WhatsApp ટૅપ કરો.", wa: "WhatsApp પર સીધી ચેટ કરો", boxT: "તમારી જરૂરિયાત મોકલો", fname: "તમારું નામ", fphone: "ફોન નંબર", fvillage: "ગામ / શહેર", fbales: "કેટલા બેલ જોઈએ?", fsel: "જથ્થો પસંદ કરો", fmsg: "કોઈ સંદેશ (વૈકલ્પિક)", fsend: "પૂછપરછ મોકલો", ok: "✅ મોકલ્યું! અમે 2 કલાકમાં કૉલ કરીશું.", err: "કૃપા કરીને નામ અને ફોન નંબર ભરો." },
-        f: { t: "લિંક્સ અને સંપર્ક", tag: "સ્થિરતાને પ્રાધાન્ય આપતા ફાર્મો માટે પ્રીમિયમ મકાઈ સાઈલેજ.", call: "કૉલ: +91 97270 07431", mail: "ઈમેઈલ: harshilbarot667@gmail.com", h: "સોમ–શનિ, સવારે 6:00 – રાત્રે 8:00", c: "© 2026 SilageDirect. બધા અધિકારો સુરક્ષિત." }
+        f: { t: "લિંક્સ અને સંપર્ક", tag: "GauVardhan Feed, Gokul Biotech Pvt Ltd નો બ્રાન્ડ છે. સ્થિરતાને પ્રાધાન્ય આપતા ફાર્મો માટે પ્રીમિયમ મકાઈ સાઈલેજ.", call: "કૉલ: +91 97270 07431", mail: "ઈમેઈલ: harshilbarot667@gmail.com", h: "સોમ–શનિ, સવારે 6:00 – રાત્રે 8:00", c: "© 2026 GauVardhan Feed. Gokul Biotech Pvt Ltd નો બ્રાન્ડ." }
       }
     };
 
@@ -67,18 +67,20 @@ const t = {
     }
 
     function initLabModal() {
-      const btn = document.getElementById("lab-preview-btn");
+      const btn = document.getElementById("hero-lab-preview") || document.getElementById("lab-preview-btn");
       const modal = document.getElementById("lab-modal");
       const close = document.getElementById("lab-close");
       if (!btn || !modal || !close) return;
       const open = () => {
         modal.classList.add("open");
         modal.setAttribute("aria-hidden", "false");
+        modal.style.display = "flex";
         document.body.style.overflow = "hidden";
       };
       const shut = () => {
         modal.classList.remove("open");
         modal.setAttribute("aria-hidden", "true");
+        modal.style.display = "";
         document.body.style.overflow = "";
       };
       btn.addEventListener("click", open);
@@ -101,6 +103,42 @@ const t = {
     function faq() { const box = document.getElementById("faq"); box.innerHTML = t[lang].faq.i.map(v => `<article class=fi><button class=fq type=button><span>${v[0]}</span><span class=plus>+</span></button><div class=fa>${v[1]}</div></article>`).join(""); box.querySelectorAll(".fi").forEach(it => { it.querySelector(".fq").onclick = () => { const o = it.classList.contains("open"); box.querySelectorAll(".fi").forEach(x => { x.classList.remove("open"); x.querySelector(".plus").textContent = "+" }); if (!o) { it.classList.add("open"); it.querySelector(".plus").textContent = "-" } } }) }
     function updateWALinks() { const msg = encodeURIComponent(lang === "hi" ? "नमस्ते, मुझे मकई साइलेज बेल ऑर्डर करना है।" : lang === "gu" ? "નમસ્તે, મને મકાઈ સાઈલેજ બેલ ઓર્ડર કરવા છે." : "Hi, I want to order maize silage bales."); const base = `https://wa.me/919727007431?text=${msg}`; document.querySelectorAll("#wa-float-link,#hero-wa,#wa-direct-link").forEach(el => el.href = base); const tip = document.getElementById("wa-tip"); if (tip) tip.textContent = lang === "hi" ? "WhatsApp पर चैट करें" : lang === "gu" ? "WhatsApp પર ચેટ કરો" : "Chat on WhatsApp"; }
 
+    function updateCarouselLang() {
+      const carouselText = {
+        en: [
+          { tag: "From Our Fields",      h: "Grown Fresh.<br>Cut at Peak Nutrition.",    s: "Every batch starts with the right maize variety, planted and harvested at the exact right time for maximum dry matter." },
+          { tag: "Precision Harvesting", h: "Cut Right.<br>Packed Same Day.",            s: "Harvested at optimal moisture, chopped to consistent length, and wrapped within hours — no delay, no nutrition loss." },
+          { tag: "Clean Storage",        h: "Stays Fresh<br>for 18 Months.",             s: "Multi-layer wrapping locks in nutrition and freshness. Your cattle get green, quality feed even in the driest months." },
+          { tag: "Ready to Deliver",     h: "Lab Verified.<br>Direct to Your Farm.",     s: "Every bale comes with a nutritional report. You know exactly what your cattle are eating before it arrives." },
+        ],
+        hi: [
+          { tag: "हमारे खेत से",         h: "ताज़ा उगाया।<br>सही समय पर काटा।",          s: "हर बैच सही मकई किस्म से शुरू होता है — ज़्यादा ड्राई मैटर के लिए सही समय पर बोया और काटा गया।" },
+          { tag: "सटीक कटाई",            h: "सही कट।<br>उसी दिन पैक।",                  s: "सही नमी पर काटा, एक समान लंबाई में काटा, और घंटों में रैप किया — कोई देरी नहीं, पोषण का नुकसान नहीं।" },
+          { tag: "साफ भंडारण",           h: "18 महीने तक<br>ताज़ा रहता है।",            s: "मल्टी-लेयर रैपिंग पोषण और ताज़गी को बंद रखती है। सबसे सूखे महीनों में भी आपके पशुओं को हरा चारा मिलता है।" },
+          { tag: "डिलीवरी के लिए तैयार", h: "लैब वेरिफाइड।<br>सीधे आपके फार्म।",       s: "हर बेल के साथ पोषण रिपोर्ट आती है। डिलीवरी से पहले आप जानते हैं कि आपके पशु क्या खाएंगे।" },
+        ],
+        gu: [
+          { tag: "અમારા ખેતરમાંથી",      h: "તાજું ઉગાડ્યું.<br>સાચા સમયે કાપ્યું.",     s: "દરેક બેચ સાચી મકાઈ જાત સાથે શરૂ થાય — મહત્તમ ડ્રાય મેટર માટે સાચા સમયે વાવ્યું અને કાપ્યું." },
+          { tag: "ચોક્કસ લણણી",          h: "સાચો કટ.<br>તે જ દિવસે પેક.",              s: "શ્રેષ્ઠ ભેજ પર કાપ્યું, સ્થિર લંબાઈમાં સમારેલ, અને કલાકોમાં રેપ — કોઈ વિલંબ નહીં, પોષણ નુકસાન નહીં." },
+          { tag: "સ્વચ્છ સ્ટોરેજ",        h: "18 મહિના સુધી<br>તાજું રહે છે.",           s: "મલ્ટિ-લેયર રેપિંગ પોષણ અને તાજગી જાળવે છે. સૌથી સૂકા મહિનામાં પણ તમારા પશુઓ ને લીલો ચારો મળે છે." },
+          { tag: "ડિલિવરી માટે તૈયાર",   h: "લેબ ચકાસેલ.<br>સીધું તમારા ફાર્મ.",        s: "દરેક બેલ સાથે પોષણ રિપોર્ટ આવે છે. ડિલિવરી પહેલા તમે જાણો છો કે તમારા પશુઓ શું ખાશે." },
+        ]
+      };
+
+      const current = window._carouselCurrent ? window._carouselCurrent() : 0;
+      const texts = carouselText[lang] || carouselText.en;
+      const t = texts[current];
+      if (!t) return;
+
+      const tag = document.getElementById("slide-tag");
+      const heading = document.getElementById("slide-heading");
+      const sub = document.getElementById("slide-sub");
+
+      if (tag) tag.textContent = t.tag;
+      if (heading) heading.innerHTML = t.h;
+      if (sub) sub.textContent = t.s;
+    }
+
     document.getElementById("f-submit").onclick = () => {
       const name = document.getElementById("f-name").value.trim();
       const phone = document.getElementById("f-phone").value.trim();
@@ -109,13 +147,13 @@ const t = {
       const msg = document.getElementById("f-msg").value.trim();
       const status = document.getElementById("f-msg-status");
       if (!name || !phone) { status.className = "form-msg error"; status.textContent = t[lang].form.err; return }
-      const waMsg = encodeURIComponent(`New Enquiry from SilageDirect website:\nName: ${name}\nPhone: ${phone}\nVillage: ${village || "—"}\nBales Needed: ${bales || "—"}\nMessage: ${msg || "—"}`);
+      const waMsg = encodeURIComponent(`New Enquiry from GauVardhan Feed website:\nCompany: Gokul Biotech Pvt Ltd\nName: ${name}\nPhone: ${phone}\nVillage: ${village || "—"}\nBales Needed: ${bales || "—"}\nMessage: ${msg || "—"}`);
       window.open(`https://wa.me/919727007431?text=${waMsg}`, "_blank");
       status.className = "form-msg success"; status.textContent = t[lang].form.ok;
       document.getElementById("f-name").value = ""; document.getElementById("f-phone").value = ""; document.getElementById("f-village").value = ""; document.getElementById("f-bales").value = ""; document.getElementById("f-msg").value = "";
     };
 
-    function render() { fillStatic(); trust(); products(); pricing(); stats(); lab(); how(); tes(); faq(); updateWALinks(); counted = false }
+    function render() { fillStatic(); trust(); products(); pricing(); stats(); lab(); how(); tes(); faq(); updateWALinks(); updateCarouselLang(); counted = false }
     function setLang(l) { lang = l; saveLang(l); applyLang(l); app.classList.add("fade"); setTimeout(() => { render(); updateLangButtons(l); app.classList.remove("fade") }, 150) }
     document.getElementById("lang").onclick = () => { const c = ["en", "hi", "gu"]; setLang(c[(c.indexOf(lang) + 1) % 3]) };
     window.onscroll = () => hdr.classList.toggle("scrolled", scrollY > 12);
@@ -127,74 +165,76 @@ const t = {
     updateLangButtons(lang);
     render();
 
-    // ── Corn Parallax Effect ───────────────────────
-    // LEARNING: We use requestAnimationFrame + scroll
-    // for smooth 60fps animation. transform: translate()
-    // is GPU-accelerated — much better than changing
-    // top/left positions which causes layout reflow.
+    function initCarousel() {
+      const slides = document.querySelectorAll(".carousel-slide");
+      const dots   = document.querySelectorAll(".carousel-dot");
+      const prev   = document.getElementById("carousel-prev");
+      const next   = document.getElementById("carousel-next");
+      const stripLeft = document.querySelector(".strip-left");
 
-    (function initCornParallax() {
-      const cornTR = document.querySelector(".corn-tr");
-      const cornBL = document.querySelector(".corn-bl");
+      if (!slides.length) return;
 
-      if (!cornTR && !cornBL) return; // exit if corn not found
+      let current = 0;
+      let timer = null;
+      const INTERVAL = 5000;
 
-      // Check if user prefers reduced motion (accessibility)
-      const prefersReduced = window.matchMedia(
-        "(prefers-reduced-motion: reduce)"
-      ).matches;
-      if (prefersReduced) return;
-
-      // Check if mobile — use lighter effect on mobile
-      const isMobile = () => window.innerWidth < 980;
-
-      let ticking = false;
-      let lastScrollY = 0;
-
-      function updateParallax() {
-        const scrollY = window.scrollY;
-
-        // Only animate while hero is in view
-        // Hero is roughly 0 to window.innerHeight
-        if (scrollY > window.innerHeight * 1.2) {
-          ticking = false;
-          return;
-        }
-
-        // Parallax multipliers
-        // Higher = more movement. Keep subtle for "balance both" mode.
-        const speedTR = isMobile() ? 0.12 : 0.18; // top-right corn
-        const speedBL = isMobile() ? 0.06 : 0.10; // bottom-left corn (subtler)
-
-        // Top-right corn: drifts up and slightly right as user scrolls down
-        if (cornTR) {
-          const yTR = -(scrollY * speedTR);
-          const xTR = scrollY * (speedTR * 0.3);
-          cornTR.style.transform = `translate(${xTR}px, ${yTR}px)`;
-        }
-
-        // Bottom-left corn: drifts down and slightly left
-        if (cornBL) {
-          const yBL = scrollY * speedBL;
-          const xBL = -(scrollY * (speedBL * 0.4));
-          cornBL.style.transform = `translate(${xBL}px, ${yBL}px)`;
-        }
-
-        ticking = false;
+      function animateText() {
+        if (!stripLeft) return;
+        stripLeft.classList.remove("slide-animating");
+        void stripLeft.offsetWidth;
+        stripLeft.classList.add("slide-animating");
       }
 
-      // Use requestAnimationFrame for smooth 60fps
-      // LEARNING: ticking prevents multiple RAF calls
-      // per scroll event — only one frame update at a time
-      window.addEventListener("scroll", () => {
-        lastScrollY = window.scrollY;
-        if (!ticking) {
-          requestAnimationFrame(updateParallax);
-          ticking = true;
+      function goTo(index) {
+        slides[current].classList.remove("active");
+        dots[current].classList.remove("active");
+        current = (index + slides.length) % slides.length;
+        slides[current].classList.add("active");
+        dots[current].classList.add("active");
+        animateText();
+        updateCarouselLang();
+        window._carouselCurrent = () => current;
+      }
+
+      function startTimer() {
+        clearInterval(timer);
+        timer = setInterval(() => goTo(current + 1), INTERVAL);
+      }
+
+      function stopTimer() { clearInterval(timer); }
+
+      prev?.addEventListener("click", () => { goTo(current - 1); startTimer(); });
+      next?.addEventListener("click", () => { goTo(current + 1); startTimer(); });
+
+      dots.forEach(dot => {
+        dot.addEventListener("click", () => {
+          goTo(+dot.dataset.slide);
+          startTimer();
+        });
+      });
+
+      const hero = document.getElementById("hero-carousel");
+      hero?.addEventListener("mouseenter", stopTimer);
+      hero?.addEventListener("mouseleave", startTimer);
+
+      // Touch swipe
+      let touchStartX = 0;
+      hero?.addEventListener("touchstart", e => {
+        touchStartX = e.touches[0].clientX;
+      }, { passive: true });
+      hero?.addEventListener("touchend", e => {
+        const diff = touchStartX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 50) {
+          goTo(diff > 0 ? current + 1 : current - 1);
+          startTimer();
         }
       }, { passive: true });
 
-      // Run once on load to set initial position
-      updateParallax();
-    })();
+      window._carouselCurrent = () => current;
+      animateText();
+      startTimer();
+    }
+
+    initCarousel();
+    updateCarouselLang();
 

@@ -24,7 +24,7 @@ html, body {
 .header.scrolled { background: rgba(247,240,227,.95); backdrop-filter: none; border-color: rgba(139,90,43,.2); box-shadow: 0 2px 12px rgba(28,20,9,.08); }
 .nav{min-height:74px;display:grid;grid-template-columns:auto 1fr auto auto;gap:.8rem;align-items:center}
 .logo{display:flex;gap:.5rem;align-items:center;font:700 1.06rem var(--h)}
-.logo i{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:rgba(232,160,32,.18);border:1px solid rgba(232,160,32,.45);color:var(--lime)}
+.logo i{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:rgba(232,160,32,.18);border:1px solid rgba(232,160,32,.45);color:var(--lime);font-style:normal;font-size:.78rem}
 .links{display:flex;justify-content:center;gap:1.2rem;color:var(--muted);font-size:.94rem}
 .links a:hover{color:var(--lime)}.links a.active{color:var(--lime);border-bottom:1px solid var(--lime);padding-bottom:2px}
 .lang{display:flex;gap:.2rem;padding:.2rem;border:1px solid rgba(250,240,215,.2);border-radius:999px;background: var(--card)}

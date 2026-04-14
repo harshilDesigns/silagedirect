@@ -9,16 +9,16 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
 
   <!-- ── FAVICON + SEO ── -->
-  <title>SilageDirect | Premium Maize Silage Bales – Direct to Your Farm</title>
+  <title>GauVardhan Feed | Premium Maize Silage Bales – Direct to Your Farm</title>
   <meta name="description"
     content="Buy premium maize silage bales direct from farm. Lab tested, GPS delivered. Starting ₹950/bale. Call +91 97270 07431.">
   <meta name="keywords"
     content="maize silage bale, મકાઈ સાઈલેજ, मक्का साइलेज, silage bale Gujarat, silage bale Rajasthan, farm feed delivery">
   <link rel="icon" type="image/svg+xml"
-    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%236B3A1F'/><text y='24' x='4' font-size='22'>🌾</text></svg>">
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%236B3A1F'/><text y='22' x='4' font-size='16'>GV</text></svg>">
 
   <!-- ── OPEN GRAPH (WhatsApp / Facebook share preview) ── -->
-  <meta property="og:title" content="SilageDirect | Premium Maize Silage Bales">
+  <meta property="og:title" content="GauVardhan Feed | Premium Maize Silage Bales">
   <meta property="og:description"
     content="Lab tested. Direct from farm. Starting ₹950/bale. GPS-tracked delivery across Gujarat & Rajasthan.">
   <meta property="og:image" content="https://silagedirect.in/images/og-preview.jpg">
@@ -49,7 +49,7 @@
 
   <header class="header" id="hdr">
     <div class="container nav">
-      <a href="index.html" class="logo"><i>❋</i><span>SilageDirect</span></a>
+      <a href="index.html" class="logo"><i>GV</i><span>GauVardhan Feed</span></a>
       <nav class="links">
         <a href="index.html" class="active" data-i18n="nav.home"></a>
         <a href="product.html" data-i18n="nav.products"></a>
@@ -72,42 +72,94 @@
   </header>
 
   <main id="app">
-    <section class="hero" id="hero-vanta">
-      <!-- Decorative corn illustrations — aria-hidden so screen readers ignore -->
-      <div class="corn-tr" aria-hidden="true">
-        <img src="images/CCorn cutout.png" alt="" class="corn-img">
+    <!-- ── CINEMATIC HERO ── -->
+    <section class="hero-cinematic" id="hero-carousel">
+
+      <!-- Background slides — full photo, clean -->
+      <div class="carousel-track" id="carousel-track">
+        <div class="carousel-slide active"
+             style="background-image:url('images/hero-crop-field.jpg')"></div>
+        <div class="carousel-slide"
+             style="background-image:url('images/hero-harvesting.jpg')"></div>
+        <div class="carousel-slide"
+             style="background-image:url('images/hero-storage.jpg')"></div>
+        <div class="carousel-slide"
+             style="background-image:url('images/hero-bales.jpg')"></div>
       </div>
-      <div class="corn-bl" aria-hidden="true">
-        <img src="images/CCorn cutout.png" alt="" class="corn-img">
-      </div>
-      <div class="container hero-grid">
-        <div>
-          <h1 class="load" data-i18n="hero.title"></h1>
-          <p class="load" data-i18n="hero.sub"></p>
-          <div class="actions load">
-            <a id="hero-wa"
-              href="https://wa.me/919727007431?text=Hi%2C%20I%20want%20to%20order%20maize%20silage%20bales"
-              target="_blank" rel="noopener noreferrer" class="btn wa"><span>📱</span><span data-i18n="hero.cta1"></span><span
-                class="ar">→</span></a>
-            <a href="product.html" class="btn ghost"><span data-i18n="hero.cta2"></span><span class="ar">→</span></a>
+
+      <!-- Floating left slide content inside carousel -->
+      <div class="strip-left strip-left-floating">
+        <span class="slide-tag" id="slide-tag">From Our Fields</span>
+        <h2 class="slide-heading" id="slide-heading">
+          Grown Fresh.<br>Cut at Peak Nutrition.
+        </h2>
+        <p class="slide-sub" id="slide-sub">
+          Every batch starts with the right maize variety,
+          planted and harvested at the exact right time
+          for maximum dry matter.
+        </p>
+        <div class="slide-footer">
+          <div class="photo-dots" id="carousel-dots" aria-label="Carousel pagination">
+            <button class="carousel-dot active" data-slide="0"></button>
+            <button class="carousel-dot" data-slide="1"></button>
+            <button class="carousel-dot" data-slide="2"></button>
+            <button class="carousel-dot" data-slide="3"></button>
           </div>
-          <div class="price load" data-i18n="hero.price"></div>
+          <div class="strip-controls">
+            <button class="carousel-arrow carousel-prev"
+                    id="carousel-prev" aria-label="Previous">&#8592;</button>
+            <button class="carousel-arrow carousel-next"
+                    id="carousel-next" aria-label="Next">&#8594;</button>
+          </div>
         </div>
-        <aside class="hero-side reveal"><img class="hero-photo" src="images/Gemini_Generated_Image_jwi8fnjwi8fnjwi8.png"
-            alt="Maize silage bales in field"><span class="badge" data-i18n="hero.badge"></span>
-          <h3 data-i18n="hero.sideT"></h3>
-          <p style="margin-top:.6rem;color:var(--muted)" data-i18n="hero.sideP"></p>
-          <div class="hero-lab">
-            <div class="hero-lab-title" data-i18n="hero.labT"></div>
-            <div class="hero-lab-actions">
-              <button class="btn primary sm" id="lab-preview-btn" type="button"><span
-                  data-i18n="hero.labPreview"></span><span class="ar">→</span></button>
-              <a class="btn ghost sm" href="documents/SilageDirect_Lab_Report.pdf" download><span
-                  data-i18n="hero.labDownload"></span><span class="ar">↓</span></a>
+      </div>
+
+      <!-- Gradient fade from photo into strip -->
+      <div class="strip-fade"></div>
+
+      <!-- Bottom strip -->
+      <div class="hero-strip">
+        <div class="hero-strip-inner">
+          <!-- RIGHT: Static brand content -->
+          <div class="strip-right">
+            <h1 class="hero-title load" data-i18n="hero.title"></h1>
+            <p class="hero-sub load" data-i18n="hero.sub"></p>
+            <div class="hero-actions load">
+              <a id="hero-wa"
+                 href="https://wa.me/919727007431?text=Hi%2C%20I%20want%20to%20order%20maize%20silage%20bales"
+                 target="_blank" rel="noopener noreferrer"
+                 class="btn wa">
+                <span>📱</span>
+                <span data-i18n="hero.cta1"></span>
+              </a>
+              <a href="product.html" class="btn ghost">
+                <span data-i18n="hero.cta2"></span>
+              </a>
+            </div>
+            <div class="hero-price load" data-i18n="hero.price"></div>
+            <div class="lab-strip load">
+              <span class="lab-strip-icon" aria-hidden="true">▣</span>
+              <span class="lab-strip-label">Lab report for this batch</span>
+              <div class="lab-strip-btns">
+                <button class="btn-lab-preview" id="hero-lab-preview"
+                  onclick="document.getElementById('lab-modal') &&
+                           document.getElementById('lab-modal').removeAttribute('aria-hidden') &&
+                           (document.getElementById('lab-modal').style.display='flex')">
+                  Preview
+                </button>
+                <a href="documents/SilageDirect_Lab_Report.pdf"
+                   class="btn-lab-dl"
+                   target="_blank"
+                   download="SilageDirect_Lab_Report.pdf">
+                  Download PDF
+                </a>
+              </div>
             </div>
           </div>
-        </aside>
+
+        </div>
       </div>
+
     </section>
 
     <section class="trust reveal">
@@ -148,7 +200,7 @@
         <article class="lab">
           <h3 data-i18n="q.card"></h3>
           <div id="lab"></div><a href="documents/SilageDirect_Lab_Report.pdf" class="dl" data-i18n="q.dl"
-            target="_blank" download="SilageDirect_Lab_Report.pdf"></a>
+            target="_blank" download="GauVardhan_Feed_Lab_Report.pdf"></a>
         </article>
       </div>
     </section>
@@ -244,7 +296,7 @@
         <iframe src="documents/SilageDirect_Lab_Report.pdf#view=FitH" title="Lab report preview"></iframe>
       </div>
       <div class="lab-foot">
-        <a class="btn primary sm" href="documents/SilageDirect_Lab_Report.pdf" download><span
+        <a class="btn primary sm" href="documents/SilageDirect_Lab_Report.pdf" download="GauVardhan_Feed_Lab_Report.pdf"><span
             data-i18n="hero.labDownload"></span><span class="ar">↓</span></a>
         <a class="btn ghost sm" href="documents/SilageDirect_Lab_Report.pdf" target="_blank"
           rel="noopener noreferrer"><span data-i18n="hero.labNewTab"></span><span class="ar">↗</span></a>
@@ -254,7 +306,7 @@
 
   <footer class="reveal">
     <div class="container fgrid">
-      <div><a href="index.html" class="logo"><i>❋</i><span>SilageDirect</span></a>
+      <div><a href="index.html" class="logo"><i>GV</i><span>GauVardhan Feed</span></a>
         <p class="tag" data-i18n="f.tag"></p>
       </div>
       <div>
