@@ -3,104 +3,35 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Order Confirmed - GauVardhan Feed</title>
+  <title>Order Confirmed – GauVardhan Feed</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%236B3A1F'/><text y='22' x='4' font-size='16'>GV</text></svg>">
+  <link rel="stylesheet" href="css/global.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700&family=Hind:wght@400;500;600&family=Hind+Vadodara:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/checkout.css">
 </head>
-<body class="confirm-page">
-
-  <header class="header" id="hdr">
-    <div class="container nav">
-      <a href="index.html" class="logo"><i>GV</i><span>GauVardhan Feed</span></a>
-      <div class="lang" id="lang">
-        <button class="active">EN</button>
-        <button>हिं</button>
-        <button>ગુ</button>
-      </div>
-    </div>
-  </header>
-
+<body class="confirm-page lang-en">
+  <header class="site-header" id="hdr"><div class="container"><nav class="nav-inner"><a href="index.html" class="nav-logo"><span class="logo-mark">■</span><span>GauVardhan Feed</span></a><div class="nav-right"><div class="lang" id="lang"><button class="active" data-lang="en">EN</button><button data-lang="hi">&#2361;&#2367;</button><button data-lang="gu">&#2711;&#2753;</button></div></div></nav></div></header>
   <main class="container confirm-wrap">
     <div class="confirm-card">
       <div class="confirm-icon">OK</div>
-      <h1>Order Placed!</h1>
-      <p class="confirm-sub">Thank you. We've received your order and will call you within <strong>2 hours</strong> to confirm your delivery slot.</p>
-
-      <div class="order-id-box">
-        <span class="oid-label">Your Order ID</span>
-        <span class="oid-value" id="order-id">-</span>
-      </div>
-
-      <div class="confirm-steps">
-        <div class="cstep done">
-          <span class="cstep-icon">OK</span>
-          <span>Order received</span>
-        </div>
-        <div class="cstep">
-          <span class="cstep-icon">2</span>
-          <span>We call to confirm</span>
-        </div>
-        <div class="cstep">
-          <span class="cstep-icon">3</span>
-          <span>Bales delivered to your farm</span>
-        </div>
-        <div class="cstep">
-          <span class="cstep-icon">4</span>
-          <span>Pay cash on delivery</span>
-        </div>
+      <h1 data-i18n="confirm.h1"></h1>
+      <p class="confirm-sub"></p>
+      <div class="order-id-box"><span class="oid-label" data-i18n="checkout.details"></span><span class="oid-value" id="order-id">-</span></div>
+      
+      <div class="confirm-next-steps">
+        <h3 data-i18n="confirm.nextT"></h3>
+        <ul id="next-steps-list"></ul>
       </div>
 
       <div class="confirm-contact">
-        <p>Questions? Call or WhatsApp us directly:</p>
-        <a href="tel:+919727007431" class="confirm-call">Call +91 97270 07431</a>
+        <p data-i18n="contact.waTitle"></p>
+        <a id="wa-link" href="https://wa.me/919727007431" class="confirm-call" data-i18n="confirm.wa"></a>
       </div>
-
-      <a href="index.html" class="btn-home">Back to Home</a>
+      <a href="index.html" class="btn-home" data-i18n="confirm.back"></a>
     </div>
   </main>
-
-  <script type="module">
-    import { getSavedLang, saveLang, applyLang, updateLangButtons } from "./js/lang.js";
-
-    const T = {
-      en: { h1: "Order Placed!", sub: "Thank you. We'll call you within 2 hours to confirm your delivery slot.", oid: "Your Order ID", s1: "Order received", s2: "We call to confirm", s3: "Bales delivered to your farm", s4: "Pay cash on delivery", q: "Questions? Call or WhatsApp:", home: "Back to Home" },
-      hi: { h1: "ऑर्डर हो गया!", sub: "धन्यवाद। हम 2 घंटे में डिलीवरी स्लॉट कन्फर्म करेंगे।", oid: "आपका ऑर्डर ID", s1: "ऑर्डर मिला", s2: "हम कन्फर्म के लिए कॉल करेंगे", s3: "बेल आपके फार्म पर डिलीवर", s4: "डिलीवरी पर नकद भुगतान करें", q: "सवाल? कॉल या WhatsApp करें:", home: "होम पर जाएं" },
-      gu: { h1: "ઓર્ડર થઈ ગયો!", sub: "આભાર. અમે 2 કલાકમાં ડિલિવરી સ્લોટ કન્ફર્મ કરીશું.", oid: "તમારો ઓર્ડર ID", s1: "ઓર્ડર મળ્યો", s2: "અમે કન્ફર્મ કરવા કૉલ કરીશું", s3: "બેલ તમારા ફાર્મ પર ડિલિવર", s4: "ડિલિવરી સમયે રોકડ ચૂકવો", q: "પ્રશ્ન? કૉલ અથવા WhatsApp કરો:", home: "હોમ પર જાઓ" }
-    };
-
-    const lang = getSavedLang();
-    applyLang(lang);
-    updateLangButtons(lang);
-
-    const l = T[lang];
-    document.querySelector(".confirm-card h1").textContent = l.h1;
-    document.querySelector(".confirm-sub").textContent = l.sub;
-    document.querySelector(".oid-label").textContent = l.oid;
-    document.querySelector(".confirm-contact p").textContent = l.q;
-    document.querySelector(".btn-home").textContent = l.home;
-    const steps = document.querySelectorAll(".cstep span:last-child");
-    if (steps[0]) steps[0].textContent = l.s1;
-    if (steps[1]) steps[1].textContent = l.s2;
-    if (steps[2]) steps[2].textContent = l.s3;
-    if (steps[3]) steps[3].textContent = l.s4;
-
-    document.getElementById("lang").onclick = () => {
-      const c = ["en", "hi", "gu"];
-      const next = c[(c.indexOf(lang) + 1) % 3];
-      saveLang(next);
-      location.reload();
-    };
-
-    const params = new URLSearchParams(window.location.search);
-    const id = params.get("id");
-    if (id) document.getElementById("order-id").textContent = id;
-
-    window.addEventListener("scroll", () => {
-      document.getElementById("hdr").classList.toggle("scrolled", scrollY > 12);
-    }, { passive: true });
-  </script>
+  <script type="module" src="js/confirm.js"></script>
 </body>
 </html>

@@ -1,109 +1,26 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700&family=Hind:wght@400;500;600&family=Hind+Vadodara:wght@400;500;600&display=swap" rel="stylesheet">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Checkout – GauVardhan Feed</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%236B3A1F'/><text y='22' x='4' font-size='16'>GV</text></svg>">
-<link rel="stylesheet" href="css/checkout.css">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700&family=Hind:wght@400;500;600&family=Hind+Vadodara:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/checkout.css">
 </head>
-<body>
-
-  <!-- NAVBAR -->
-  <header class="header" id="hdr">
-    <div class="container nav">
-      <a href="index.html" class="logo"><i>GV</i><span>GauVardhan Feed</span></a>
-      <div class="lang" id="lang">
-        <button class="active">EN</button>
-        <button>हिं</button>
-        <button>ગુ</button>
-      </div>
-      <div class="nav-right">
-        <a href="product.html" class="back-link">← Continue Shopping</a>
-      </div>
-    </div>
-  </header>
-
-  <main class="container">
-
+<body class="lang-en">
+  <header class="site-header" id="hdr"><div class="container"><nav class="nav-inner"><a href="index.html" class="nav-logo"><span class="logo-mark">■</span><span>GauVardhan Feed</span></a><div class="nav-links"><a href="index.html" class="nav-link" data-i18n="nav.home"></a><a href="product.html" class="nav-link" data-i18n="nav.products"></a><a href="about.html" class="nav-link" data-i18n="nav.about"></a><a href="contact.html" class="nav-link" data-i18n="nav.contact"></a></div><div class="nav-right"><div class="lang" id="lang"><button class="active" data-lang="en">EN</button><button data-lang="hi">&#2361;&#2367;</button><button data-lang="gu">&#2711;&#2753;</button></div><a href="checkout.html" class="cart-icon" id="cart-icon" aria-label="Cart"><svg viewBox="0 0 24 24"><path d="M7 4H3v2h2l2.6 9.59A2 2 0 0 0 9.52 17H19v-2H9.52l-.55-2H18a2 2 0 0 0 1.94-1.51L21.89 6H7.42l-.3-1.05A1.5 1.5 0 0 0 7 4zm3 15a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"/></svg><span class="cart-badge" id="cart-count">0</span></a><a href="checkout.html" class="btn-accent nav-cta" data-i18n="common.orderNow"></a><button class="nav-toggle" id="nav-toggle" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-nav">☰</button></div></nav><nav class="mobile-nav" id="mobile-nav"><a href="index.html" class="nav-link" data-i18n="nav.home"></a><a href="product.html" class="nav-link" data-i18n="nav.products"></a><a href="about.html" class="nav-link" data-i18n="nav.about"></a><a href="contact.html" class="nav-link" data-i18n="nav.contact"></a></nav></div></header>
+  <main class="container checkout-page">
     <div class="checkout-grid">
-
-      <!-- LEFT: Order Summary -->
-      <section class="order-summary">
-        <h2>Order Summary</h2>
-        <div id="cart-items">
-          <!-- Filled by checkout.js -->
-        </div>
-        <div class="summary-empty" id="empty-msg" style="display:none">
-          <p>Your cart is empty. <a href="product.html">Browse products â†’</a></p>
-        </div>
-        <div class="summary-totals" id="summary-totals">
-          <div class="total-row">
-            <span>Subtotal</span>
-            <span id="subtotal">₹0</span>
-          </div>
-          <div class="total-row">
-            <span>Delivery</span>
-            <span class="free">To be confirmed</span>
-          </div>
-          <div class="total-row total-final">
-            <span>Total</span>
-            <span id="grand-total">₹0</span>
-          </div>
-          <p class="cod-note">💵 Cash on Delivery — pay when your bales arrive</p>
-        </div>
-      </section>
-
-      <!-- RIGHT: Delivery Details Form -->
-      <section class="checkout-form">
-        <h2>Your Details</h2>
-        <p class="form-sub">We'll call you within 2 hours to confirm your order and delivery slot.</p>
-
-        <div class="frow">
-          <div class="frow2">
-            <div class="fg">
-              <label for="f-name">Full Name *</label>
-              <input type="text" id="f-name" placeholder="Ramesh Patel" autocomplete="name">
-            </div>
-            <div class="fg">
-              <label for="f-phone">Phone Number *</label>
-              <input type="tel" id="f-phone" placeholder="+91 98765 00000" autocomplete="tel">
-            </div>
-          </div>
-          <div class="fg">
-            <label for="f-address">Village / Address *</label>
-            <input type="text" id="f-address" placeholder="Village name, Taluka" autocomplete="address-line1">
-          </div>
-          <div class="frow2">
-            <div class="fg">
-              <label for="f-district">District *</label>
-              <input type="text" id="f-district" placeholder="Mehsana">
-            </div>
-            <div class="fg">
-              <label for="f-pincode">Pincode *</label>
-              <input type="text" id="f-pincode" placeholder="384001" maxlength="6">
-            </div>
-          </div>
-          <div class="fg">
-            <label for="f-notes">Delivery Notes (optional)</label>
-            <textarea id="f-notes" rows="2" placeholder="Best time to call, landmark, etc."></textarea>
-          </div>
-
-          <button class="btn-place-order" id="place-order">
-            <span id="btn-text">Place Order (COD)</span>
-            <span class="btn-arrow">→</span>
-          </button>
-
-          <div class="form-msg" id="form-status"></div>
-        </div>
-      </section>
-
+      <section class="order-summary"><h2 data-i18n="checkout.title"></h2><div id="cart-items"></div><div class="summary-totals" id="summary-totals"><div class="total-row"><span data-i18n="checkout.subtotal"></span><span id="subtotal">₹0</span></div><div class="total-row"><span data-i18n="checkout.delivery"></span><span class="free" data-i18n="checkout.deliveryVal"></span></div><div class="total-row total-final"><span data-i18n="checkout.total"></span><span id="grand-total">₹0</span></div><p class="cod-note" data-i18n="checkout.cod"></p></div></section>
+      <section class="checkout-form"><h2 data-i18n="checkout.details"></h2><p class="form-sub" data-i18n="checkout.sub"></p><div class="frow"><div class="frow2"><div class="fg"><label for="f-name" data-i18n="checkout.labels.name"></label><input type="text" id="f-name" placeholder="Ramesh Patel" autocomplete="name"></div><div class="fg"><label for="f-phone" data-i18n="checkout.labels.phone"></label><input type="tel" id="f-phone" placeholder="+91 98765 00000" autocomplete="tel"></div></div><div class="fg"><label for="f-address" data-i18n="checkout.labels.address"></label><input type="text" id="f-address" placeholder="Village name, Taluka" autocomplete="address-line1"></div><div class="frow2"><div class="fg"><label for="f-district" data-i18n="checkout.labels.district"></label><input type="text" id="f-district" placeholder="Mehsana"></div><div class="fg"><label for="f-pincode" data-i18n="checkout.labels.pincode"></label><input type="text" id="f-pincode" placeholder="384001" maxlength="6"></div></div><div class="fg"><label for="f-notes" data-i18n="checkout.labels.notes"></label><textarea id="f-notes" rows="2" placeholder="Best time to call, landmark, etc."></textarea></div><button class="btn-place-order" id="place-order"><span id="btn-text" data-i18n="checkout.placeOrder"></span></button><div class="form-msg" id="form-status"></div></div></section>
     </div>
   </main>
-
   <script type="module" src="js/checkout.js"></script>
 </body>
 </html>
+
+

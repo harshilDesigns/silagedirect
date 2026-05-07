@@ -1,5 +1,5 @@
 // ─────────────────────────────────────────────
-//  firebase.js  —  SilageDirect
+//  firebase.js  —  GauVardhan Feed
 //  Shared Firebase connection used by all pages
 //  LEARNING: This file initialises Firebase once.
 //  Every other JS file that needs the database
@@ -12,9 +12,9 @@ import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.0/firebas
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyDoByjP9G0_YUVld2xrdQInIhgcE4n8CUc",
-  authDomain: "silagedirect.firebaseapp.com",
-  projectId: "silagedirect",
-  storageBucket: "silagedirect.firebasestorage.app",
+  authDomain: "GauVardhan Feed.firebaseapp.com",
+  projectId: "GauVardhan Feed",
+  storageBucket: "GauVardhan Feed.firebasestorage.app",
   messagingSenderId: "259963755977",
   appId: "1:259963755977:web:5bdf31d9a8885d9b949c18"
 };

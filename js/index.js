@@ -1,240 +1,474 @@
-﻿import { getSavedLang, saveLang, applyLang, updateLangButtons } from "./lang.js";
-
+import { getSavedLang, saveLang, applyLang, updateLangButtons, getT } from "./lang.js";
 import { addToCart, updateCartBadge } from "./cart.js";
 
-const t = {
-      en: {
-        nav: { home: "Home", products: "Products", about: "About Us", contact: "Contact", cart: "Cart" },
-        hero: { title: "Premium Maize Silage Bales. Clean Nutrition, Delivered Right.", sub: "Luxury-grade maize silage for serious dairy farmers with consistent dry matter, clear lab values, and dependable farm-gate delivery.", cta1: "Order on WhatsApp", cta2: "See Products", price: "Starting at ₹950 per bale.", badge: "Fresh Cut. Tight Wrap.", sideT: "Built for yield-focused farms", sideP: "Packed for intake consistency, milk response, and cleaner stack management.", labT: "Lab report for this batch", labPreview: "Preview report", labDownload: "Download PDF", labModalT: "Lab Report Preview", labNewTab: "Open in new tab" },
-        trust: ["Lab Tested", "Direct Farm", "GPS Delivery", "10+ Years"],
-        prod: { t: "Choose Your Bale Format", s: "Two formats. Full specs. Live stock. Direct order.", add: "Add to Order", l: { w: "Weight", dm: "Dry Matter %", m: "Moisture %", c: "Cut", h: "Harvest Date", wr: "Wrapping", pr: "Price", st: "Stock" } },
-        price: { t: "Bulk Pricing — The More You Order, The More You Save", note: "* GST extra. Prices valid for current season stock. Call to confirm availability for orders above 100 bales.", rows: [["Pro 100kg", "1–11 bales", "₹950 / bale", "—"], ["Pro 100kg", "12–50 bales", "₹900 / bale", "Save ₹50/bale"], ["Pro 100kg", "51+ bales", "₹860 / bale", "Save ₹90/bale"], ["Max 700kg", "1–5 bales", "₹5,200 / bale", "—"], ["Max 700kg", "6–20 bales", "₹4,900 / bale", "Save ₹300/bale"], ["Max 700kg", "21+ bales", "₹4,600 / bale", "Save ₹600/bale"]], h: ["Bale Type", "Quantity", "Price", "Saving"] },
-        stats: [{ l: "Farms", v: 500, s: "+" }, { l: "On-Time", v: 98, s: "%" }, { l: "Extra Milk/Day", v: 7, s: "L" }, { l: "Years", v: 10, s: "+" }],
-        q: { t: "Every Batch Verified Before Dispatch.", s: "No vague claims. You get measurable feed quality that supports stable ration planning.", card: "Nutritional Breakdown", dl: "Download Lab Report (PDF)", i: [["Energy", "11.4 MJ/kg DM"], ["Protein", "8.9%"], ["Starch", "33.1%"], ["pH", "3.9"], ["DM", "35.0%"]] },
-        how: { t: "Simple, Fast, Field-Ready", i: [["Share Need", "Tell us bale type and quantity."], ["Confirm Slot", "Get price, stock lock, and delivery window."], ["Receive & Feed", "Unload at farm and feed same day."]] },
-        tes: { t: "Trusted by Progressive Farmers", i: [["Ramesh Patel", "Patel Dairy, Anand", "Delivery timing is exact. Milk response improved in one week."], ["Sandeep Yadav", "Balaji Farm, Alwar", "Specs match what was promised. No moisture surprises."], ["Manoj Chauhan", "Shiv Cattle Unit, Mehsana", "We shifted fully to 700kg bales. Operations are smoother now."]] },
-        faq: { t: "Frequently Asked Questions", i: [["What is the minimum order?", "Minimum dispatch starts from 12 bales, based on route."], ["Can I schedule split deliveries?", "Yes. We stagger drop-offs to match your feed cycle."], ["100kg vs 700kg, what should I choose?", "100kg fits manual handling; 700kg suits bigger daily consumption."], ["Do you provide lab report for each lot?", "Yes, lot-linked nutritional summary is shared with each confirmed order."]] },
-        form: { t: "Get in Touch. We'll Call You Back.", sub: "Fill the form and we'll get back to you within 2 hours. Or just tap WhatsApp below for an instant reply.", wa: "Chat Directly on WhatsApp", boxT: "Send Us Your Requirement", fname: "Your Name", fphone: "Phone Number", fvillage: "Village / Town", fbales: "How Many Bales?", fsel: "Select quantity", fmsg: "Any message (optional)", fsend: "Send Enquiry", ok: "✅ Sent! We'll call you back within 2 hours.", err: "Please fill in your name and phone number." },
-        f: { t: "Links & Contact", tag: "GauVardhan Feed by Gokul Biotech Pvt Ltd. Premium maize silage, direct to farms that care about consistency.", call: "Call: +91 97270 07431", mail: "Email: harshilbarot667@gmail.com", h: "Mon–Sat, 6:00 AM – 8:00 PM", c: "© 2026 GauVardhan Feed. A brand of Gokul Biotech Pvt Ltd." }
-      },
-      hi: {
-        nav: { home: "होम", products: "उत्पाद", about: "हमारे बारे में", contact: "संपर्क", cart: "कार्ट" },
-        hero: { title: "प्रीमियम मकई साइलेज बेल। साफ पोषण, सही डिलीवरी।", sub: "गंभीर डेयरी किसानों के लिए फार्म-डायरेक्ट मकई साइलेज। स्थिर ड्राई मैटर, स्पष्ट लैब मान, और भरोसेमंद फार्म-गेट डिलीवरी।", cta1: "WhatsApp पर ऑर्डर करें", cta2: "उत्पाद देखें", price: "शुरुआत ₹950 प्रति बेल से।", badge: "ताज़ा कट। कसी रैप।", sideT: "उपज-केंद्रित फार्मों के लिए बना", sideP: "सेवन की स्थिरता, दूध प्रतिक्रिया और साफ स्टैक प्रबंधन के लिए।", labT: "इस बैच की लैब रिपोर्ट", labPreview: "रिपोर्ट देखें", labDownload: "PDF डाउनलोड करें", labModalT: "लैब रिपोर्ट प्रीव्यू", labNewTab: "नए टैब में खोलें" },
-        trust: ["लैब परीक्षित", "सीधा फार्म", "GPS डिलीवरी", "10+ साल"],
-        prod: { t: "अपना बेल फॉर्मेट चुनें", s: "दो फॉर्मेट। पूरी स्पेक। लाइव स्टॉक। सीधा ऑर्डर।", add: "कार्ट में जोड़ें", l: { w: "वज़न", dm: "ड्राई मैटर %", m: "नमी %", c: "कट", h: "कटाई तारीख", wr: "रैपिंग", pr: "कीमत", st: "स्टॉक" } },
-        price: { t: "बल्क प्राइसिंग — जितना ज़्यादा ऑर्डर, उतनी बचत", note: "* GST अलग। कीमतें मौजूदा सीज़न स्टॉक के लिए।", rows: [["Pro 100kg", "1–11 बेल", "₹950 / बेल", "—"], ["Pro 100kg", "12–50 बेल", "₹900 / बेल", "₹50/बेल बचत"], ["Pro 100kg", "51+ बेल", "₹860 / बेल", "₹90/बेल बचत"], ["Max 700kg", "1–5 बेल", "₹5,200 / बेल", "—"], ["Max 700kg", "6–20 बेल", "₹4,900 / बेल", "₹300/बेल बचत"], ["Max 700kg", "21+ बेल", "₹4,600 / बेल", "₹600/बेल बचत"]], h: ["बेल प्रकार", "मात्रा", "कीमत", "बचत"] },
-        stats: [{ l: "फार्म", v: 500, s: "+" }, { l: "समय पर", v: 98, s: "%" }, { l: "अतिरिक्त दूध/दिन", v: 7, s: "L" }, { l: "साल", v: 10, s: "+" }],
-        q: { t: "हर बैच डिस्पैच से पहले वेरिफाइड।", s: "कोई अस्पष्ट दावे नहीं। आपको मापने योग्य फीड क्वालिटी मिलती है।", card: "पोषण विवरण", dl: "लैब रिपोर्ट डाउनलोड करें (PDF)", i: [["ऊर्जा", "11.4 MJ/kg DM"], ["प्रोटीन", "8.9%"], ["स्टार्च", "33.1%"], ["pH", "3.9"], ["DM", "35.0%"]] },
-        how: { t: "सरल, तेज़, फील्ड-रेडी", i: [["ज़रूरत बताएं", "बेल प्रकार और मात्रा बताएं।"], ["स्लॉट कन्फर्म करें", "कीमत, स्टॉक लॉक और डिलीवरी विंडो पाएं।"], ["प्राप्त करें और खिलाएं", "फार्म पर उतारें और उसी दिन खिलाएं।"]] },
-        tes: { t: "प्रगतिशील किसानों का भरोसा", i: [["रमेश पटेल", "पटेल डेयरी, आनंद", "डिलीवरी समय बिल्कुल सही। एक हफ्ते में दूध उत्पादन बेहतर हुआ।"], ["संदीप यादव", "बालाजी फार्म, अलवर", "स्पेक्स वैसे ही मिले जैसे वादा था। नमी में कोई चौंक नहीं।"], ["मनोज चौहान", "शिव कैटल यूनिट, मेहसाणा", "हम पूरी तरह 700kg बेल पर शिफ्ट हो गए। काम आसान हो गया।"]] },
-        faq: { t: "अक्सर पूछे जाने वाले सवाल", i: [["न्यूनतम ऑर्डर क्या है?", "न्यूनतम डिस्पैच 12 बेल से शुरू होता है, रूट के आधार पर।"], ["क्या मैं स्प्लिट डिलीवरी शेड्यूल कर सकता हूं?", "हाँ। हम आपके फीड साइकिल के अनुसार डिलीवरी करते हैं।"], ["100kg या 700kg, क्या चुनूं?", "100kg मैनुअल हैंडलिंग के लिए; 700kg बड़ी दैनिक खपत के लिए।"], ["क्या हर लॉट के लिए लैब रिपोर्ट मिलती है?", "हाँ, हर कन्फर्म्ड ऑर्डर के साथ लॉट-लिंक्ड रिपोर्ट शेयर की जाती है।"]] },
-        form: { t: "संपर्क करें। हम कॉल करेंगे।", sub: "फॉर्म भरें और हम 2 घंटे में वापस आएंगे। या नीचे WhatsApp टैप करें।", wa: "WhatsApp पर सीधे चैट करें", boxT: "अपनी ज़रूरत भेजें", fname: "आपका नाम", fphone: "फोन नंबर", fvillage: "गाँव / शहर", fbales: "कितनी बेल चाहिए?", fsel: "मात्रा चुनें", fmsg: "कोई संदेश (वैकल्पिक)", fsend: "एन्क्वायरी भेजें", ok: "✅ भेज दिया! हम 2 घंटे में कॉल करेंगे।", err: "कृपया नाम और फोन नंबर भरें।" },
-        f: { t: "लिंक्स और संपर्क", tag: "GauVardhan Feed, Gokul Biotech Pvt Ltd का ब्रांड है। स्थिरता को प्राथमिकता देने वाले फार्म के लिए प्रीमियम मकई साइलेज।", call: "कॉल: +91 97270 07431", mail: "ईमेल: harshilbarot667@gmail.com", h: "सोम–शनि, सुबह 6:00 – रात 8:00", c: "© 2026 GauVardhan Feed. Gokul Biotech Pvt Ltd का ब्रांड।" }
-      },
-      gu: {
-        nav: { home: "હોમ", products: "ઉત્પાદનો", about: "અમારા વિશે", contact: "સંપર્ક", cart: "કાર્ટ" },
-        hero: { title: "પ્રીમિયમ મકાઈ સાઈલેજ બેલ. સ્વચ્છ પોષણ, સાચી ડિલિવરી.", sub: "ગંભીર ડેરી ખેડૂતો માટે ફાર્મ-ડાયરેક્ટ મકાઈ સાઈલેજ. સ્થિર ડ્રાય મેટર, સ્પષ્ટ લેબ મૂલ્યો અને ભરોસાપાત્ર ફાર્મ-ગેટ ડિલિવરી.", cta1: "WhatsApp પર ઓર્ડર કરો", cta2: "ઉત્પાદનો જુઓ", price: "શરૂઆત ₹950 પ્રતિ બેલ.", badge: "તાજું કટ. ચુસ્ત રેપ.", sideT: "ઉત્પાદન-કેન્દ્રિત ફાર્મો માટે", sideP: "સેવન સ્થિરતા, દૂધ પ્રતિભાવ અને સ્વચ્છ સ્ટેક વ્યવસ્થાપન માટે.", labT: "આ બેચ માટે લેબ રિપોર્ટ", labPreview: "રિપોર્ટ જુઓ", labDownload: "PDF ડાઉનલોડ કરો", labModalT: "લેબ રિપોર્ટ પ્રિવ્યુ", labNewTab: "નવા ટેબમાં ખોલો" },
-        trust: ["લેબ પરીક્ષિત", "સીધું ફાર્મ", "GPS ડિલિવરી", "10+ વર્ષ"],
-        prod: { t: "તમારું બેલ ફોર્મેટ પસંદ કરો", s: "બે ફોર્મેટ. સંપૂર્ણ સ્પેક. લાઈવ સ્ટોક. સીધો ઓર્ડર.", add: "કાર્ટમાં ઉમેરો", l: { w: "વજન", dm: "ડ્રાય મેટર %", m: "ભેજ %", c: "કટ", h: "લણણી તારીખ", wr: "રેપિંગ", pr: "કિંમત", st: "સ્ટોક" } },
-        price: { t: "બલ્ક પ્રાઈસિંગ — જેટલો વધુ ઓર્ડર, તેટલી બચત", note: "* GST અલગ. કિંમતો વર્તમાન સિઝન સ્ટોક માટે.", rows: [["Pro 100kg", "1–11 બેલ", "₹950 / બેલ", "—"], ["Pro 100kg", "12–50 બેલ", "₹900 / બેલ", "₹50/બેલ બચત"], ["Pro 100kg", "51+ બેલ", "₹860 / બેલ", "₹90/બેલ બચત"], ["Max 700kg", "1–5 બેલ", "₹5,200 / બેલ", "—"], ["Max 700kg", "6–20 બેલ", "₹4,900 / બેલ", "₹300/બેલ બચત"], ["Max 700kg", "21+ બેલ", "₹4,600 / બેલ", "₹600/બેલ બચત"]], h: ["બેલ પ્રકાર", "જથ્થો", "કિંમત", "બચત"] },
-        stats: [{ l: "ફાર્મ", v: 500, s: "+" }, { l: "સમયસર", v: 98, s: "%" }, { l: "વધારાનું દૂધ/દિવસ", v: 7, s: "L" }, { l: "વર્ષ", v: 10, s: "+" }],
-        q: { t: "દરેક બેચ ડિસ્પેચ પહેલા ચકાસાયેલ.", s: "કોઈ અસ્પષ્ટ દાવા નહીં. માપી શકાય તેવી ફીડ ગુણવત્તા.", card: "પોષણ વિગત", dl: "લેબ રિપોર્ટ ડાઉનલોડ કરો (PDF)", i: [["ઊર્જા", "11.4 MJ/kg DM"], ["પ્રોટીન", "8.9%"], ["સ્ટાર્ચ", "33.1%"], ["pH", "3.9"], ["DM", "35.0%"]] },
-        how: { t: "સરળ, ઝડપી, ફીલ્ડ-રેડી", i: [["જરૂર જણાવો", "બેલ પ્રકાર અને જથ્થો જણાવો."], ["સ્લોટ કન્ફર્મ કરો", "કિંમત, સ્ટોક લોક અને ડિલિવરી વિન્ડો મેળવો."], ["મેળવો અને ખવડાવો", "ફાર્મ પર ઉતારો અને તે જ દિવસે ખવડાવો."]] },
-        tes: { t: "પ્રગતિશીલ ખેડૂતો દ્વારા વિશ્વાસપાત્ર", i: [["રમેશ પટેલ", "પટેલ ડેરી, આણંદ", "ડિલિવરી સમય એકદમ સચોટ. એક અઠવાડિયામાં દૂધ ઉત્પાદન સુધર્યું."], ["સંદીપ યાદવ", "બાલાજી ફાર્મ, અલ્વર", "સ્પેક્સ વચન મુજબ. ભેજમાં કોઈ આશ્ચર્ય નહીં."], ["મનોજ ચૌહાણ", "શિવ કેટલ યુનિટ, મહેસાણા", "અમે સંપૂર્ણ 700kg બેલ પર શિફ્ટ થઈ ગયા. ઓપરેશન સરળ થઈ ગયું."]] },
-        faq: { t: "વારંવાર પૂછાતા પ્રશ્નો", i: [["લઘુત્તમ ઓર્ડર શું છે?", "લઘુત્તમ ડિસ્પેચ 12 બેલથી શરૂ થાય છે, રૂટ પ્રમાણે."], ["શું હું સ્પ્લિટ ડિલિવરી શેડ્યૂલ કરી શકું?", "હા. અમે તમારા ફીડ સાઈકલ અનુસાર ડિલિવરી ગોઠવીએ છીએ."], ["100kg કે 700kg, શું પસંદ કરું?", "100kg મેન્યુઅલ હેન્ડલિંગ માટે; 700kg મોટી દૈનિક વપરાશ માટે."], ["શું દરેક લોટ માટે લેબ રિપોર્ટ મળે છે?", "હા, દરેક કન્ફર્મ્ડ ઓર્ડર સાથે લોટ-લિંક્ડ રિપોર્ટ શેર થાય છે."]] },
-        form: { t: "સંપર્ક કરો. અમે કૉલ કરીશું.", sub: "ફોર્મ ભરો અને અમે 2 કલાકમાં પાછા આવીશું. અથવા નીચે WhatsApp ટૅપ કરો.", wa: "WhatsApp પર સીધી ચેટ કરો", boxT: "તમારી જરૂરિયાત મોકલો", fname: "તમારું નામ", fphone: "ફોન નંબર", fvillage: "ગામ / શહેર", fbales: "કેટલા બેલ જોઈએ?", fsel: "જથ્થો પસંદ કરો", fmsg: "કોઈ સંદેશ (વૈકલ્પિક)", fsend: "પૂછપરછ મોકલો", ok: "✅ મોકલ્યું! અમે 2 કલાકમાં કૉલ કરીશું.", err: "કૃપા કરીને નામ અને ફોન નંબર ભરો." },
-        f: { t: "લિંક્સ અને સંપર્ક", tag: "GauVardhan Feed, Gokul Biotech Pvt Ltd નો બ્રાન્ડ છે. સ્થિરતાને પ્રાધાન્ય આપતા ફાર્મો માટે પ્રીમિયમ મકાઈ સાઈલેજ.", call: "કૉલ: +91 97270 07431", mail: "ઈમેઈલ: harshilbarot667@gmail.com", h: "સોમ–શનિ, સવારે 6:00 – રાત્રે 8:00", c: "© 2026 GauVardhan Feed. Gokul Biotech Pvt Ltd નો બ્રાન્ડ." }
+document.addEventListener("DOMContentLoaded", () => {
+  document.documentElement.classList.add("js");
+
+  const data = [
+    { n: "Pro 100", img: "images/Hand.png", w: "100 kg", dm: "34.8%", m: "65.2%", c: "Cut 2", h: "18 Sep 2025", wr: "6 Layers", p: 950, s: 240, fitKey: "index.fitSmall", decisionKey: "index.decSmall" },
+    { n: "Max 700", img: "images/bales-Gemini_Generated_Image_jpz8rzjpz8rzjpz8.png", w: "700 kg", dm: "35.1%", m: "64.9%", c: "Cut 2", h: "22 Sep 2025", wr: "8 Layers", p: 5200, s: 84, fitKey: "index.fitLarge", decisionKey: "index.decLarge" }
+  ];
+
+  let lang = getSavedLang();
+  const app = document.getElementById("app");
+
+  function initMobileNav() {
+    const toggle = document.getElementById("nav-toggle");
+    const menu = document.getElementById("mobile-nav");
+    if (!toggle || !menu) return;
+    const close = () => {
+      menu.classList.remove("open");
+      toggle.setAttribute("aria-expanded", "false");
+    };
+    toggle.onclick = () => {
+      const open = !menu.classList.contains("open");
+      menu.classList.toggle("open", open);
+      toggle.setAttribute("aria-expanded", String(open));
+    };
+    menu.querySelectorAll("a").forEach((a) => a.addEventListener("click", close));
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 960) close();
+    });
+  }
+
+  function initHeaderScroll() {
+    const hdr = document.getElementById("hdr");
+    if (!hdr) return;
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 50) {
+        hdr.classList.add("scrolled");
+      } else {
+        hdr.classList.remove("scrolled");
+      }
+    });
+  }
+
+  function initHeroParallax() {
+    const hero = document.querySelector(".hero-section");
+    const bg = document.querySelector(".hero-bg-img");
+    if (!hero || !bg) return;
+
+    let ticking = false;
+    let scrollY = window.scrollY;
+
+    const update = () => {
+      const yPos = scrollY * 0.8;
+      const scale = 1 + scrollY * 0.0001;
+      bg.style.transform = `translate3d(0, ${yPos}px, 0) scale(${scale})`;
+      ticking = false;
+    };
+
+    window.addEventListener("scroll", () => {
+      scrollY = window.scrollY;
+      if (!ticking && scrollY < 1200) {
+        window.requestAnimationFrame(update);
+        ticking = true;
+      }
+    }, { passive: true });
+
+    update();
+  }
+
+  function initHeroStoryCarousel() {
+    const carousel = document.getElementById("hero-story-carousel");
+    const dotsWrap = document.getElementById("hero-story-dots");
+    if (!carousel || !dotsWrap) return;
+    const slides = Array.from(carousel.querySelectorAll(".hero-story-slide"));
+    const dots = Array.from(dotsWrap.querySelectorAll(".hero-story-dot"));
+    if (!slides.length || slides.length !== dots.length) return;
+
+    let active = 0;
+    let timer = null;
+
+    const show = (index) => {
+      active = (index + slides.length) % slides.length;
+      slides.forEach((slide, i) => slide.classList.toggle("is-active", i === active));
+      dots.forEach((dot, i) => dot.classList.toggle("is-active", i === active));
+    };
+
+    const start = () => {
+      stop();
+      timer = window.setInterval(() => show(active + 1), 4200);
+    };
+
+    const stop = () => {
+      if (timer) window.clearInterval(timer);
+      timer = null;
+    };
+
+    dots.forEach((dot, i) => {
+      dot.addEventListener("click", () => {
+        show(i);
+        start();
+      });
+    });
+
+    carousel.addEventListener("mouseenter", stop);
+    carousel.addEventListener("mouseleave", start);
+    show(0);
+    start();
+  }
+
+  function initLabModal() {
+    const btn = document.getElementById("lab-preview-btn");
+    const modal = document.getElementById("lab-modal");
+    const close = document.getElementById("lab-close");
+    if (!btn || !modal || !close) return;
+    const open = () => {
+      modal.classList.add("open");
+      modal.setAttribute("aria-hidden", "false");
+      modal.style.display = "flex";
+      document.body.style.overflow = "hidden";
+    };
+    const shut = () => {
+      modal.classList.remove("open");
+      modal.setAttribute("aria-hidden", "true");
+      modal.style.display = "";
+      document.body.style.overflow = "";
+    };
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      open();
+    });
+    close.addEventListener("click", shut);
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) shut();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && modal.classList.contains("open")) shut();
+    });
+  }
+
+  function trust() {
+    const trustEl = document.getElementById("trust");
+    if (!trustEl) return;
+    const trustArr = getT("index.trust", lang) || [];
+    const arr = [...trustArr, ...trustArr];
+    trustEl.innerHTML = arr.map((item) => `<span class=t><b>★</b> ${item}</span>`).join("");
+  }
+
+  function products() {
+    const productsGrid = document.getElementById("productsGrid");
+    if (!productsGrid) return;
+    productsGrid.innerHTML = data.map((d, i) => `
+      <article class="product-card">
+        <div class="product-card-img-wrap">
+          <img src="${d.img}" alt="${d.n}" class="product-card-img" width="300" height="300" loading="lazy">
+        </div>
+        <div class="product-card__body">
+          <div class="product-card__top">
+            <span class="product-card__fit">${getT(d.fitKey, lang)}</span>
+            <h3 class="product-card__name">${d.n}</h3>
+          </div>
+          <div class="product-card__decision">
+            <strong>${getT("index.prodDecision", lang)}</strong>
+            <span>${getT(d.decisionKey, lang)}</span>
+          </div>
+          <div class="product-card__specs">
+            <div class="product-card__spec">
+              <div class="spec-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 2h10l1 2H6l1-2Z"/><path d="M3 7h18l-1.5 12h-15L3 7Z"/><path d="M12 7v12"/></svg>
+              </div>
+              <div class="spec-data">
+                <span class="spec-label">${getT("index.specW", lang)}</span>
+                <span class="spec-value">${d.w}</span>
+              </div>
+            </div>
+            <div class="product-card__spec">
+              <div class="spec-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v10"/><path d="m16 8-4-4-4 4"/><path d="M3 22h18"/><path d="M5 22v-4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v4"/></svg>
+              </div>
+              <div class="spec-data">
+                <span class="spec-label">${getT("index.specDM", lang)}</span>
+                <span class="spec-value">${d.dm}</span>
+              </div>
+            </div>
+            <div class="product-card__spec">
+              <div class="spec-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg>
+              </div>
+              <div class="spec-data">
+                <span class="spec-label">${getT("index.specWR", lang)}</span>
+                <span class="spec-value">${d.wr}</span>
+              </div>
+            </div>
+            <div class="product-card__spec">
+              <div class="spec-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8v13H3V8"/><path d="M1 3h22v5H1z"/><path d="M10 12h4"/></svg>
+              </div>
+              <div class="spec-data">
+                <span class="spec-label">${getT("index.specST", lang)}</span>
+                <span class="spec-value">${d.s}</span>
+              </div>
+            </div>
+          </div>
+          <div class="product-card__price">
+            <div class="price-box">
+              <strong>₹${d.p.toLocaleString("en-IN")}</strong>
+              <small>/bale</small>
+            </div>
+          </div>
+          <div class="product-card__actions">
+            <button class="btn-premium add" data-i="${i}" ${d.s ? "" : "disabled"}>${getT("index.prodAdd", lang)}</button>
+            <a class="wa-link-premium" href="https://wa.me/919727007431?text=${encodeURIComponent(`Hi, I want to order ${d.n} maize silage bales.`)}" target="_blank" rel="noopener noreferrer">${getT("common.whatsappOrder", lang)}</a>
+          </div>
+        </div>
+      </article>`).join("");
+
+    document.querySelectorAll(".add").forEach((button) => {
+      button.onclick = () => {
+        const index = Number(button.dataset.i);
+        if (!data[index].s) return;
+        addToCart({ name: data[index].n, weight: data[index].w, price: data[index].p });
+        data[index].s -= 1;
+        updateCartBadge();
+        products();
+      };
+    });
+  }
+
+  function pricing() {
+    const table = document.getElementById("pricingTable");
+    if (!table) return;
+    const priceH = getT("index.priceH", lang);
+    const priceRows = getT("index.priceRows", lang);
+    table.innerHTML = `
+      <thead>
+        <tr>
+          <th>${priceH[0]}</th>
+          <th>${priceH[1]}</th>
+          <th class="best-value">${priceH[2]}</th>
+          <th>${priceH[3]}</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${priceRows.map((row) => `
+          <tr>
+            <td>${row[0]}</td>
+            <td>${row[1]}</td>
+            <td class="hi best-value">${row[2]}</td>
+            <td class="${row[3] === "—" ? "excluded" : "included"}">${row[3] === "—" ? "—" : "✓ " + row[3]}</td>
+          </tr>`).join("")}
+        <tr class="cta-row">
+          <td colspan="2">${getT("index.priceCta1", lang)}</td>
+          <td class="best-value"><a href="product.html" class="btn-accent">${getT("index.priceCta2", lang)}</a></td>
+          <td><a href="checkout.html" class="btn-accent">${getT("index.priceCta3", lang)}</a></td>
+        </tr>
+      </tbody>`;
+  }
+
+  function stats() {
+    const statsEl = document.getElementById("stats");
+    if (!statsEl) return;
+    const statsData = [
+        { l: getT("index.statFarms", lang), v: 500, s: "+" }, 
+        { l: getT("index.statDelivery", lang), v: 98, s: "%" }, 
+        { l: getT("index.statMilk", lang), v: 7, s: "L" }, 
+        { l: getT("index.statYears", lang), v: 10, s: "+" }
+    ];
+    statsEl.innerHTML = statsData.map((item) => `<article class=s><div class=sv data-v=${item.v} data-s="${item.s}">0${item.s}</div><div class=sl>${item.l}</div></article>`).join("");
+  }
+
+  function countStats(el) {
+    if (el.dataset.counted === "true") return;
+    el.dataset.counted = "true";
+    const value = parseFloat(el.dataset.v) || 0;
+    const suffix = el.dataset.s || "";
+    const duration = 2000;
+    const start = performance.now();
+
+    const run = (now) => {
+      const progress = Math.min(1, (now - start) / duration);
+      const eased = 1 - Math.pow(1 - progress, 4); 
+      const current = value * eased;
+
+      if (value % 1 === 0) {
+        el.textContent = Math.floor(current) + suffix;
+      } else {
+        el.textContent = current.toFixed(1) + suffix;
+      }
+
+      if (progress < 1) {
+        requestAnimationFrame(run);
+      } else {
+        el.textContent = value + suffix;
       }
     };
+    requestAnimationFrame(run);
+  }
 
-    const data = [{ n: "Pro 100", img: "images/Hand.png", w: "100 kg", dm: "34.8%", m: "65.2%", c: "Cut 2", h: "18 Sep 2025", wr: "6 Layers", p: 950, s: 240 }, { n: "Max 700", img: "images/Bale.png", w: "700 kg", dm: "35.1%", m: "64.9%", c: "Cut 2", h: "22 Sep 2025", wr: "8 Layers", p: 5200, s: 84 }];
-    let lang = getSavedLang(), cart = 0, counted = false;
-    const app = document.getElementById("app"), hdr = document.getElementById("hdr");
-    const G = (p) => p.split(".").reduce((a, k) => a?.[k], t[lang]);
-
-    function initMobileNav() {
-      const toggle = document.getElementById("nav-toggle");
-      const menu = document.getElementById("mobile-nav");
-      if (!toggle || !menu) return;
-      const close = () => { menu.classList.remove("open"); toggle.setAttribute("aria-expanded", "false") };
-      toggle.onclick = () => {
-        const open = !menu.classList.contains("open");
-        menu.classList.toggle("open", open);
-        toggle.setAttribute("aria-expanded", String(open));
-      };
-      menu.querySelectorAll("a").forEach(a => a.addEventListener("click", close));
-      window.addEventListener("resize", () => { if (window.innerWidth > 980) close() });
-    }
-
-    function initLabModal() {
-      const btn = document.getElementById("hero-lab-preview") || document.getElementById("lab-preview-btn");
-      const modal = document.getElementById("lab-modal");
-      const close = document.getElementById("lab-close");
-      if (!btn || !modal || !close) return;
-      const open = () => {
-        modal.classList.add("open");
-        modal.setAttribute("aria-hidden", "false");
-        modal.style.display = "flex";
-        document.body.style.overflow = "hidden";
-      };
-      const shut = () => {
-        modal.classList.remove("open");
-        modal.setAttribute("aria-hidden", "true");
-        modal.style.display = "";
-        document.body.style.overflow = "";
-      };
-      btn.addEventListener("click", open);
-      close.addEventListener("click", shut);
-      modal.addEventListener("click", (e) => { if (e.target === modal) shut() });
-      document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && modal.classList.contains("open")) shut();
+  function setupStatsObserver() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          countStats(entry.target);
+          observer.unobserve(entry.target);
+        }
       });
-    }
+    }, { threshold: 0.2, rootMargin: "0px 0px -50px 0px" });
 
-    function fillStatic() { document.querySelectorAll("[data-i18n]").forEach(e => { const v = G(e.dataset.i18n); if (typeof v === "string") e.textContent = v }) }
-    function trust() { const arr = [...t[lang].trust, ...t[lang].trust]; document.getElementById("trust").innerHTML = arr.map(i => `<span class=t><b>★</b> ${i}</span>`).join("") }
-    function products() { const L = t[lang].prod.l; document.getElementById("productsGrid").innerHTML = data.map((d, i) => `<article class=card><img class=card-img src="${d.img}" alt="${d.n}"><div class=ph><h3>${d.n}</h3><span class=stock>${L.st}: ${d.s}</span></div><div class=specs><div class=spec><b>${L.w}</b><span>${d.w}</span></div><div class=spec><b>${L.dm}</b><span>${d.dm}</span></div><div class=spec><b>${L.m}</b><span>${d.m}</span></div><div class=spec><b>${L.c}</b><span>${d.c}</span></div><div class=spec><b>${L.h}</b><span>${d.h}</span></div><div class=spec><b>${L.wr}</b><span>${d.wr}</span></div></div><div class=row><div><small>${L.pr}</small><div class=p>₹${d.p.toLocaleString("en-IN")}</div></div><button class="btn primary add" data-i=${i} ${d.s ? "" : "disabled"}>${t[lang].prod.add}<span class=ar>→</span></button></div></article>`).join(""); document.querySelectorAll(".add").forEach(b => b.onclick = () => { const i = +b.dataset.i; if (!data[i].s) return; addToCart({ name: data[i].n, weight: data[i].w, price: data[i].p }); data[i].s--; updateCartBadge(); products() }) }
-    function pricing() { const pd = t[lang].price; const tbl = document.getElementById("pricingTable"); tbl.innerHTML = `<thead><tr>${pd.h.map(h => `<th>${h}</th>`).join("")}</tr></thead><tbody>${pd.rows.map((r) => `<tr><td>${r[0]}</td><td>${r[1]}</td><td class=hi>${r[2]}</td><td style="color:${r[3] === '—' ? 'var(--muted)' : 'var(--lime)'}">${r[3]}</td></tr>`).join("")}</tbody>`; }
-    function stats() { document.getElementById("stats").innerHTML = t[lang].stats.map(s => `<article class=s><div class=sv data-v=${s.v} data-s="${s.s}">0${s.s}</div><div class=sl>${s.l}</div></article>`).join("") }
-    function countStats() { if (counted) return; counted = true; document.querySelectorAll(".sv").forEach(el => { const v = +el.dataset.v, s = el.dataset.s, st = performance.now(), dur = 1300; const run = n => { const p = Math.min(1, (n - st) / dur), e = 1 - Math.pow(1 - p, 3); el.textContent = Math.floor(v * e) + s; if (p < 1) requestAnimationFrame(run) }; requestAnimationFrame(run) }) }
-    function lab() { document.getElementById("lab").innerHTML = t[lang].q.i.map(r => `<div class=lr><span>${r[0]}</span><strong>${r[1]}</strong></div>`).join("") }
-    function how() { document.getElementById("steps").innerHTML = t[lang].how.i.map((s, i) => `<article class=step><div class=n>${i + 1}</div><h3>${s[0]}</h3><p>${s[1]}</p></article>`).join("") }
-    function tes() { const pics = ["images/ChatGPT Image Mar 4, 2026, 04_58_16 PM.png", "images/Hand.png", "images/Bale.png"]; document.getElementById("tes").innerHTML = t[lang].tes.i.map((v, i) => `<article class=tc><img class=face src="${pics[i % pics.length]}" alt="${v[0]} farm"><div class=st>★★★★★</div><q>${v[2]}</q><div class=meta><strong>${v[0]}</strong><br>${v[1]}</div></article>`).join("") }
-    function faq() { const box = document.getElementById("faq"); box.innerHTML = t[lang].faq.i.map(v => `<article class=fi><button class=fq type=button><span>${v[0]}</span><span class=plus>+</span></button><div class=fa>${v[1]}</div></article>`).join(""); box.querySelectorAll(".fi").forEach(it => { it.querySelector(".fq").onclick = () => { const o = it.classList.contains("open"); box.querySelectorAll(".fi").forEach(x => { x.classList.remove("open"); x.querySelector(".plus").textContent = "+" }); if (!o) { it.classList.add("open"); it.querySelector(".plus").textContent = "-" } } }) }
-    function updateWALinks() { const msg = encodeURIComponent(lang === "hi" ? "नमस्ते, मुझे मकई साइलेज बेल ऑर्डर करना है।" : lang === "gu" ? "નમસ્તે, મને મકાઈ સાઈલેજ બેલ ઓર્ડર કરવા છે." : "Hi, I want to order maize silage bales."); const base = `https://wa.me/919727007431?text=${msg}`; document.querySelectorAll("#wa-float-link,#hero-wa,#wa-direct-link").forEach(el => el.href = base); const tip = document.getElementById("wa-tip"); if (tip) tip.textContent = lang === "hi" ? "WhatsApp पर चैट करें" : lang === "gu" ? "WhatsApp પર ચેટ કરો" : "Chat on WhatsApp"; }
+    document.querySelectorAll(".hero-stat-num, .sv").forEach((el) => {
+      observer.observe(el);
+    });
+  }
 
-    function updateCarouselLang() {
-      const carouselText = {
-        en: [
-          { tag: "From Our Fields",      h: "Grown Fresh.<br>Cut at Peak Nutrition.",    s: "Every batch starts with the right maize variety, planted and harvested at the exact right time for maximum dry matter." },
-          { tag: "Precision Harvesting", h: "Cut Right.<br>Packed Same Day.",            s: "Harvested at optimal moisture, chopped to consistent length, and wrapped within hours — no delay, no nutrition loss." },
-          { tag: "Clean Storage",        h: "Stays Fresh<br>for 18 Months.",             s: "Multi-layer wrapping locks in nutrition and freshness. Your cattle get green, quality feed even in the driest months." },
-          { tag: "Ready to Deliver",     h: "Lab Verified.<br>Direct to Your Farm.",     s: "Every bale comes with a nutritional report. You know exactly what your cattle are eating before it arrives." },
-        ],
-        hi: [
-          { tag: "हमारे खेत से",         h: "ताज़ा उगाया।<br>सही समय पर काटा।",          s: "हर बैच सही मकई किस्म से शुरू होता है — ज़्यादा ड्राई मैटर के लिए सही समय पर बोया और काटा गया।" },
-          { tag: "सटीक कटाई",            h: "सही कट।<br>उसी दिन पैक।",                  s: "सही नमी पर काटा, एक समान लंबाई में काटा, और घंटों में रैप किया — कोई देरी नहीं, पोषण का नुकसान नहीं।" },
-          { tag: "साफ भंडारण",           h: "18 महीने तक<br>ताज़ा रहता है।",            s: "मल्टी-लेयर रैपिंग पोषण और ताज़गी को बंद रखती है। सबसे सूखे महीनों में भी आपके पशुओं को हरा चारा मिलता है।" },
-          { tag: "डिलीवरी के लिए तैयार", h: "लैब वेरिफाइड।<br>सीधे आपके फार्म।",       s: "हर बेल के साथ पोषण रिपोर्ट आती है। डिलीवरी से पहले आप जानते हैं कि आपके पशु क्या खाएंगे।" },
-        ],
-        gu: [
-          { tag: "અમારા ખેતરમાંથી",      h: "તાજું ઉગાડ્યું.<br>સાચા સમયે કાપ્યું.",     s: "દરેક બેચ સાચી મકાઈ જાત સાથે શરૂ થાય — મહત્તમ ડ્રાય મેટર માટે સાચા સમયે વાવ્યું અને કાપ્યું." },
-          { tag: "ચોક્કસ લણણી",          h: "સાચો કટ.<br>તે જ દિવસે પેક.",              s: "શ્રેષ્ઠ ભેજ પર કાપ્યું, સ્થિર લંબાઈમાં સમારેલ, અને કલાકોમાં રેપ — કોઈ વિલંબ નહીં, પોષણ નુકસાન નહીં." },
-          { tag: "સ્વચ્છ સ્ટોરેજ",        h: "18 મહિના સુધી<br>તાજું રહે છે.",           s: "મલ્ટિ-લેયર રેપિંગ પોષણ અને તાજગી જાળવે છે. સૌથી સૂકા મહિનામાં પણ તમારા પશુઓ ને લીલો ચારો મળે છે." },
-          { tag: "ડિલિવરી માટે તૈયાર",   h: "લેબ ચકાસેલ.<br>સીધું તમારા ફાર્મ.",        s: "દરેક બેલ સાથે પોષણ રિપોર્ટ આવે છે. ડિલિવરી પહેલા તમે જાણો છો કે તમારા પશુઓ શું ખાશે." },
-        ]
+  function lab() {
+    const labEl = document.getElementById("lab");
+    if (!labEl) return;
+    const items = [["Energy", "11.4 MJ/kg DM"], ["Protein", "8.9%"], ["Starch", "33.1%"], ["pH", "3.9"], ["DM", "35.0%"]];
+    labEl.innerHTML = items.map((row) => `<div class=lr><span>${row[0]}</span><strong>${row[1]}</strong></div>`).join("");
+  }
+
+  function how() {
+    const stepsEl = document.getElementById("steps");
+    if (!stepsEl) return;
+    const steps = getT("index.how", lang) || [];
+    stepsEl.innerHTML = steps.map((step, index) => `<article class=step><div class=n>${index + 1}</div><h3>${step.t}</h3><p>${step.p}</p></article>`).join("");
+  }
+
+  function getInitials(name) {
+    const parts = name.trim().split(/\s+/).filter(Boolean);
+    const first = parts[0]?.[0] || "";
+    const last = parts.length > 1 ? parts[parts.length - 1][0] : first;
+    return `${first}${last}`.toUpperCase();
+  }
+
+  function tes() {
+    const tesEl = document.getElementById("tes");
+    if (!tesEl) return;
+    const items = getT("index.tes", lang) || [];
+    tesEl.innerHTML = items.map((item) => `
+      <article class="tc card">
+        <div class="testimonial-head">
+          <div class="testimonial-avatar" aria-hidden="true">${getInitials(item.n)}</div>
+          <div class="testimonial-meta">
+            <strong>${item.n}</strong>
+            <span>${item.s}</span>
+          </div>
+        </div>
+        <div class="st" aria-label="5 out of 5 stars">★★★★★</div>
+        <q>${item.q}</q>
+      </article>`).join("");
+  }
+
+  function faq() {
+    const box = document.getElementById("faq");
+    if (!box) return;
+    const items = getT("index.faq", lang) || [];
+    box.innerHTML = items.map((item) => `<article class=fi><button class=fq type=button><span>${item.q}</span><span class=plus>+</span></button><div class=fa>${item.a}</div></article>`).join("");
+    box.querySelectorAll(".fi").forEach((item) => {
+      item.querySelector(".fq").onclick = () => {
+        const open = item.classList.contains("open");
+        box.querySelectorAll(".fi").forEach((node) => {
+          node.classList.remove("open");
+          node.querySelector(".plus").textContent = "+";
+        });
+        if (!open) {
+          item.classList.add("open");
+          item.querySelector(".plus").textContent = "-";
+        }
       };
+    });
+  }
 
-      const current = window._carouselCurrent ? window._carouselCurrent() : 0;
-      const texts = carouselText[lang] || carouselText.en;
-      const t = texts[current];
-      if (!t) return;
+  function updateWALinks() {
+    const msg = encodeURIComponent(getT("common.waMsg", lang));
+    document.querySelectorAll("#wa-float-link,#hero-wa,#wa-direct-link,#mobile-wa-link").forEach((el) => {
+      el.href = `https://wa.me/919727007431?text=${msg}`;
+    });
+  }
 
-      const tag = document.getElementById("slide-tag");
-      const heading = document.getElementById("slide-heading");
-      const sub = document.getElementById("slide-sub");
+  function buildForm() {
+    const select = document.getElementById("f-bales");
+    if (!select) return;
+    const options = getT("index.balesOptions", lang) || [];
+    const defaultValue = select.options[0].text; // Keep "Select quantity" localized via data-i18n if possible, but here we just rebuild
+    const placeholder = getT("index.formFsel", lang);
+    
+    let html = `<option value="">${placeholder}</option>`;
+    const values = ["12-24", "25-50", "51-100", "100+"];
+    options.forEach((opt, i) => {
+        html += `<option value="${values[i]}">${opt}</option>`;
+    });
+    select.innerHTML = html;
+  }
 
-      if (tag) tag.textContent = t.tag;
-      if (heading) heading.innerHTML = t.h;
-      if (sub) sub.textContent = t.s;
+  document.getElementById("f-submit").onclick = () => {
+    const name = document.getElementById("f-name").value.trim();
+    const phone = document.getElementById("f-phone").value.trim();
+    const village = document.getElementById("f-village").value.trim();
+    const bales = document.getElementById("f-bales").value;
+    const msg = document.getElementById("f-msg").value.trim();
+    const status = document.getElementById("f-msg-status");
+    if (!name || !phone) {
+      status.className = "form-msg error";
+      status.textContent = getT("index.formErr", lang);
+      return;
     }
+    const waMsg = encodeURIComponent(`New Enquiry from GauVardhan Feed website:\nCompany: Gokul Biotech Pvt Ltd\nName: ${name}\nPhone: ${phone}\nVillage: ${village || "—"}\nBales Needed: ${bales || "—"}\nMessage: ${msg || "—"}`);
+    window.open(`https://wa.me/919727007431?text=${waMsg}`, "_blank");
+    status.className = "form-msg success";
+    status.textContent = getT("index.formOk", lang);
+    document.getElementById("f-name").value = "";
+    document.getElementById("f-phone").value = "";
+    document.getElementById("f-village").value = "";
+    document.getElementById("f-bales").value = "";
+    document.getElementById("f-msg").value = "";
+  };
 
-    document.getElementById("f-submit").onclick = () => {
-      const name = document.getElementById("f-name").value.trim();
-      const phone = document.getElementById("f-phone").value.trim();
-      const village = document.getElementById("f-village").value.trim();
-      const bales = document.getElementById("f-bales").value;
-      const msg = document.getElementById("f-msg").value.trim();
-      const status = document.getElementById("f-msg-status");
-      if (!name || !phone) { status.className = "form-msg error"; status.textContent = t[lang].form.err; return }
-      const waMsg = encodeURIComponent(`New Enquiry from GauVardhan Feed website:\nCompany: Gokul Biotech Pvt Ltd\nName: ${name}\nPhone: ${phone}\nVillage: ${village || "—"}\nBales Needed: ${bales || "—"}\nMessage: ${msg || "—"}`);
-      window.open(`https://wa.me/919727007431?text=${waMsg}`, "_blank");
-      status.className = "form-msg success"; status.textContent = t[lang].form.ok;
-      document.getElementById("f-name").value = ""; document.getElementById("f-phone").value = ""; document.getElementById("f-village").value = ""; document.getElementById("f-bales").value = ""; document.getElementById("f-msg").value = "";
-    };
+  function render() {
+    applyLang(lang);
+    trust();
+    products();
+    pricing();
+    stats();
+    lab();
+    how();
+    tes();
+    faq();
+    updateWALinks();
+    buildForm();
+    setupStatsObserver();
+  }
 
-    function render() { fillStatic(); trust(); products(); pricing(); stats(); lab(); how(); tes(); faq(); updateWALinks(); updateCarouselLang(); counted = false }
-    function setLang(l) { lang = l; saveLang(l); applyLang(l); app.classList.add("fade"); setTimeout(() => { render(); updateLangButtons(l); app.classList.remove("fade") }, 150) }
-    document.getElementById("lang").onclick = () => { const c = ["en", "hi", "gu"]; setLang(c[(c.indexOf(lang) + 1) % 3]) };
-    window.onscroll = () => hdr.classList.toggle("scrolled", scrollY > 12);
-    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); if (e.target.classList.contains("stats")) countStats() } }), { threshold: .18 });
-    document.querySelectorAll(".reveal").forEach(e => io.observe(e));
-    initMobileNav();
-    initLabModal();
+  function setLang(nextLang) {
+    lang = nextLang;
+    saveLang(lang);
     applyLang(lang);
     updateLangButtons(lang);
-    render();
+    app.classList.add("fade");
+    setTimeout(() => {
+      render();
+      app.classList.remove("fade");
+    }, 150);
+  }
 
-    function initCarousel() {
-      const slides = document.querySelectorAll(".carousel-slide");
-      const dots   = document.querySelectorAll(".carousel-dot");
-      const prev   = document.getElementById("carousel-prev");
-      const next   = document.getElementById("carousel-next");
-      const stripLeft = document.querySelector(".strip-left");
+  document.querySelectorAll("[data-lang]").forEach((button) => {
+    button.addEventListener("click", function () {
+      setLang(this.dataset.lang);
+    });
+  });
 
-      if (!slides.length) return;
-
-      let current = 0;
-      let timer = null;
-      const INTERVAL = 5000;
-
-      function animateText() {
-        if (!stripLeft) return;
-        stripLeft.classList.remove("slide-animating");
-        void stripLeft.offsetWidth;
-        stripLeft.classList.add("slide-animating");
-      }
-
-      function goTo(index) {
-        slides[current].classList.remove("active");
-        dots[current].classList.remove("active");
-        current = (index + slides.length) % slides.length;
-        slides[current].classList.add("active");
-        dots[current].classList.add("active");
-        animateText();
-        updateCarouselLang();
-        window._carouselCurrent = () => current;
-      }
-
-      function startTimer() {
-        clearInterval(timer);
-        timer = setInterval(() => goTo(current + 1), INTERVAL);
-      }
-
-      function stopTimer() { clearInterval(timer); }
-
-      prev?.addEventListener("click", () => { goTo(current - 1); startTimer(); });
-      next?.addEventListener("click", () => { goTo(current + 1); startTimer(); });
-
-      dots.forEach(dot => {
-        dot.addEventListener("click", () => {
-          goTo(+dot.dataset.slide);
-          startTimer();
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("in");
+        const stagger = entry.target.querySelectorAll(".product-card, .step, .tc, .hero-stat");
+        stagger.forEach((child, i) => {
+          child.style.transitionDelay = `${i * 0.12}s`;
+          child.classList.add("in");
         });
-      });
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
 
-      const hero = document.getElementById("hero-carousel");
-      hero?.addEventListener("mouseenter", stopTimer);
-      hero?.addEventListener("mouseleave", startTimer);
-
-      // Touch swipe
-      let touchStartX = 0;
-      hero?.addEventListener("touchstart", e => {
-        touchStartX = e.touches[0].clientX;
-      }, { passive: true });
-      hero?.addEventListener("touchend", e => {
-        const diff = touchStartX - e.changedTouches[0].clientX;
-        if (Math.abs(diff) > 50) {
-          goTo(diff > 0 ? current + 1 : current - 1);
-          startTimer();
-        }
-      }, { passive: true });
-
-      window._carouselCurrent = () => current;
-      animateText();
-      startTimer();
-    }
-
-    initCarousel();
-    updateCarouselLang();
-
+  initMobileNav();
+  initHeaderScroll();
+  initHeroParallax();
+  initHeroStoryCarousel();
+  initLabModal();
+  applyLang(lang);
+  updateLangButtons(lang);
+  render();
+});

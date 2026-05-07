@@ -2,16 +2,15 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700&family=Hind:wght@400;500;600&family=Hind+Vadodara:wght@400;500;600&display=swap" rel="stylesheet">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Admin - GauVardhan Feed Orders</title>
-<link rel="stylesheet" href="css/admin.css">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700&family=Hind:wght@400;500;600&family=Hind+Vadodara:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/admin.css">
 </head>
 <body>
-
-  <!-- PASSWORD GATE -->
   <div class="gate" id="gate">
     <div class="gate-box">
       <div class="gate-logo">GauVardhan Feed</div>
@@ -21,50 +20,11 @@
       <p class="gate-err" id="gate-err"></p>
     </div>
   </div>
-
-  <!-- ADMIN DASHBOARD (hidden until password correct) -->
   <div class="admin-wrap" id="admin-wrap" style="display:none">
-
-    <header class="admin-header">
-      <div class="admin-logo">GauVardhan Feed - Orders</div>
-      <div class="admin-meta">
-        <span id="order-count">Loading...</span>
-        <button class="btn-refresh" id="refresh-btn">Refresh</button>
-      </div>
-    </header>
-
-    <!-- FILTERS -->
-    <div class="filters">
-      <button class="filter-btn active" data-status="all">All</button>
-      <button class="filter-btn" data-status="pending">Pending</button>
-      <button class="filter-btn" data-status="confirmed">Confirmed</button>
-      <button class="filter-btn" data-status="delivered">Delivered</button>
-    </div>
-
-    <!-- ORDERS TABLE -->
-    <div class="table-wrap">
-      <table class="orders-table" id="orders-table">
-        <thead>
-          <tr>
-            <th>Order ID</th>
-            <th>Date</th>
-            <th>Farmer</th>
-            <th>Phone</th>
-            <th>Location</th>
-            <th>Items</th>
-            <th>Total</th>
-            <th>Status</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody id="orders-body">
-          <tr><td colspan="9" class="loading-row">Loading orders...</td></tr>
-        </tbody>
-      </table>
-    </div>
-
+    <header class="admin-header"><div class="admin-logo">GauVardhan Feed - Orders</div><div class="admin-meta"><span id="order-count">Loading...</span><button class="btn-refresh" id="refresh-btn">Refresh</button></div></header>
+    <div class="filters"><button class="filter-btn active" data-status="all">All</button><button class="filter-btn" data-status="pending">Pending</button><button class="filter-btn" data-status="confirmed">Confirmed</button><button class="filter-btn" data-status="delivered">Delivered</button></div>
+    <div class="table-wrap"><table class="orders-table" id="orders-table"><thead><tr><th>Order ID</th><th>Date</th><th>Farmer</th><th>Phone</th><th>Location</th><th>Items</th><th>Total</th><th>Status</th><th>Actions</th></tr></thead><tbody id="orders-body"><tr><td colspan="9" class="loading-row">Loading orders...</td></tr></tbody></table></div>
   </div>
-
   <script type="module" src="js/admin.js"></script>
 </body>
 </html>

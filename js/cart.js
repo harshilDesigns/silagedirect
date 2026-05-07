@@ -1,5 +1,5 @@
 // ─────────────────────────────────────────────
-//  cart.js  —  SilageDirect
+//  cart.js  —  GauVardhan Feed
 //  Manages the shopping cart across all pages
 //
 //  LEARNING: localStorage is like a mini-database
