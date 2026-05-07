@@ -212,9 +212,16 @@ section {
   font-size: 1.15rem;
   font-weight: 700;
   color: var(--clr-primary);
-  line-height: 1.2;
+}
+html, body {
+  overflow-x: hidden;
+  width: 100%;
 }
 
+img {
+  max-width: 100%;
+  display: block;
+}
 .hero-decision-meta {
   color: var(--clr-text-muted);
   font-size: 0.8rem;
@@ -1017,21 +1024,30 @@ footer {
   border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Mobile CTA Bar Enhancements */
+/* Mobile CTA Bar */
 .mobile-cta-bar {
-  display: none; /* default hidden */
+  display: none;
   position: fixed;
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 90;
+  width: 100%; /* Explicitly constrain to viewport width */
+  box-sizing: border-box; /* Padding does not expand beyond 100% */
+  z-index: 999;
   gap: 0.75rem;
   padding: 0.8rem 1rem calc(0.8rem + env(safe-area-inset-bottom));
   background: rgba(255, 255, 255, 0.94);
   backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
   border-top: 1px solid rgba(28, 58, 26, 0.08);
   box-shadow: 0 -8px 20px rgba(28, 58, 26, 0.07);
-  transition: transform 0.2s ease;
+}
+
+@media (max-width: 360px) {
+  .mobile-cta-bar {
+    gap: 0.5rem;
+    padding: 0.8rem 0.75rem calc(0.8rem + env(safe-area-inset-bottom));
+  }
 }
 
 /* show on screens <= 768px */
@@ -1043,14 +1059,24 @@ footer {
 
 .mobile-cta {
   flex: 1;
+  min-width: 0; /* Allow shrinking */
   min-height: 48px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   border-radius: 12px;
-  font-weight: 600;
-  font-size: 0.95rem;
+  font-weight: 700;
+  font-size: 0.92rem;
   transition: background 0.2s, transform 0.12s;
+  text-align: center;
+  padding: 0 4px; /* Small inner padding */
+  white-space: nowrap; /* Prevent wrapping but combine with smaller font for narrow screens */
+}
+
+@media (max-width: 340px) {
+  .mobile-cta {
+    font-size: 0.82rem;
+  }
 }
 
 .mobile-cta--ghost {
@@ -1088,28 +1114,6 @@ footer {
 }
 
 
-.mobile-cta {
-  flex: 1;
-  min-height: 48px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 14px;
-  font-weight: 700;
-  font-size: 0.92rem;
-}
-
-.mobile-cta--ghost {
-  background: #fff;
-  border: 1px solid rgba(28, 58, 26, 0.12);
-  color: var(--clr-primary);
-}
-
-.mobile-cta--primary {
-  background: var(--clr-primary);
-  color: #fff;
-  box-shadow: 0 12px 28px rgba(28, 58, 26, 0.16);
-}
 
 .footer-logo,
 footer h3 {
@@ -1135,15 +1139,7 @@ footer h3 {
   padding: 1rem 0 1.5rem;
 }
 
-.js .reveal {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.6s, transform 0.6s;
-}
-
-.js .reveal.in {
-  opacity: 1;
-  transform: none;
+/* (duplicate .js .reveal block removed) */
 }
 
 .fade {
@@ -1218,45 +1214,118 @@ footer h3 {
     font-size: 0.85rem;
   }
 
+  /* ── Pricing: card layout on mobile ── */
   .ptable-wrap {
-    margin-left: calc(var(--space-24) * -1);
-    margin-right: calc(var(--space-24) * -1);
-    border-radius: 0;
-    border-left: 0;
-    border-right: 0;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    position: relative;
-    /* Scroll hint gradient */
-    background: linear-gradient(to right, white 30%, rgba(255, 255, 255, 0)),
-                linear-gradient(to right, rgba(255, 255, 255, 0), white 70%) 100% 0,
-                radial-gradient(farthest-side at 0 50%, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0)),
-                radial-gradient(farthest-side at 100% 50%, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0)) 100% 0;
-    background-repeat: no-repeat;
-    background-size: 40px 100%, 40px 100%, 14px 100%, 14px 100%;
-    background-attachment: local, local, scroll, scroll;
+    margin: 0; /* Remove negative margins — they fight overflow-x: hidden */
+    border-radius: var(--radius-lg);
+    overflow: visible;
+    background: none;
+    box-shadow: none;
+    border: none;
   }
 
   .ptable-wrap h3 {
     text-align: center;
-    padding: 0 var(--space-16);
+    margin-bottom: var(--space-16);
   }
 
+  /* Hide the real table, show cards instead */
   .ptable {
-    min-width: 600px;
+    display: none;
+    min-width: unset;
   }
 
-  .cta-row td {
+  /* Card list injected by ptable-wrap::after trick — we use a sibling approach via JS instead */
+  /* We build mobile cards from the existing table rows via CSS display tricks */
+  .ptable-mobile-cards {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-    padding: var(--space-24) var(--space-16);
+    gap: var(--space-12);
   }
 
-  .cta-row td[colspan="2"] {
-    display: block;
-    text-align: center;
+  .ptable-mobile-card {
+    background: var(--clr-bg-white);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-16);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-8) var(--space-16);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .ptable-mobile-card.is-header {
+    background: var(--clr-primary);
+    border-color: var(--clr-primary);
+  }
+
+  .ptable-mobile-card.is-header span {
+    color: rgba(255,255,255,0.82);
+    font-size: 0.72rem;
     font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+  }
+
+  .pm-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--clr-text-muted);
+  }
+
+  .pm-value {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--clr-text-dark);
+  }
+
+  .pm-value.is-price {
+    color: var(--clr-primary);
+    font-size: 1.05rem;
+  }
+
+  .pm-value.is-saving {
+    color: #2e8b57;
+    font-size: 0.88rem;
+  }
+
+  .pm-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .ptable-mobile-cta {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-12);
+    margin-top: var(--space-8);
+    padding: var(--space-16);
+    background: var(--clr-bg-cream);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius-md);
+    text-align: center;
+  }
+
+  .ptable-mobile-cta p {
+    font-weight: 700;
+    color: var(--clr-primary);
+    font-size: 0.95rem;
+    margin: 0;
+  }
+
+  .ptable-mobile-cta .cta-btns {
+    display: flex;
+    gap: var(--space-8);
+  }
+
+  .ptable-mobile-cta .btn-accent {
+    flex: 1;
+    padding: 12px 8px;
+    font-size: 0.85rem;
+    text-align: center;
   }
 }
 
@@ -1386,7 +1455,13 @@ footer h3 {
   max-width: 1200px;
   padding: 0;
   gap: var(--space-48);
-  grid-template-columns: minmax(0, 1fr) minmax(0, 520px);
+  grid-template-columns: 1fr; /* Default to 1 column for mobile */
+}
+
+@media (min-width: 960px) {
+  .hero-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 520px);
+  }
 }
 
 .hero-copy {
@@ -1522,9 +1597,15 @@ footer h3 {
 }
 
 .trust-stats {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); /* Make it responsive */
   gap: var(--space-16);
   padding: 0;
+}
+
+@media (max-width: 480px) {
+  .trust-stats {
+    grid-template-columns: repeat(2, 1fr); /* 2x2 on small mobile */
+  }
 }
 
 .trust-stats .s {
@@ -1648,3 +1729,14 @@ footer h3 {
   }
 }
 
+/* ── Pricing: hide mobile cards above 960px, show table ── */
+@media (min-width: 961px) {
+  .ptable-mobile-cards {
+    display: none;
+  }
+
+  .ptable {
+    display: table; /* Override the mobile display: none */
+    min-width: unset;
+  }
+}

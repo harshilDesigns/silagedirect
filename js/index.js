@@ -232,6 +232,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!table) return;
     const priceH = getT("index.priceH", lang);
     const priceRows = getT("index.priceRows", lang);
+
+    // Desktop table (hidden on mobile via CSS)
     table.innerHTML = `
       <thead>
         <tr>
@@ -255,6 +257,52 @@ document.addEventListener("DOMContentLoaded", () => {
           <td><a href="checkout.html" class="btn-accent">${getT("index.priceCta3", lang)}</a></td>
         </tr>
       </tbody>`;
+
+    // Mobile card layout (shown on mobile via CSS, hidden on desktop)
+    const wrap = table.closest(".ptable-wrap");
+    if (!wrap) return;
+
+    // Remove any existing mobile cards to avoid duplicates on re-render
+    const existing = wrap.querySelector(".ptable-mobile-cards");
+    if (existing) existing.remove();
+
+    const cards = document.createElement("div");
+    cards.className = "ptable-mobile-cards";
+
+    cards.innerHTML = priceRows.map((row) => {
+      const hasSaving = row[3] !== "—";
+      return `
+        <div class="ptable-mobile-card">
+          <div class="pm-cell">
+            <span class="pm-label">${priceH[0]}</span>
+            <span class="pm-value">${row[0]}</span>
+          </div>
+          <div class="pm-cell">
+            <span class="pm-label">${priceH[1]}</span>
+            <span class="pm-value">${row[1]}</span>
+          </div>
+          <div class="pm-cell">
+            <span class="pm-label">${priceH[2]}</span>
+            <span class="pm-value is-price">${row[2]}</span>
+          </div>
+          <div class="pm-cell">
+            <span class="pm-label">${priceH[3]}</span>
+            <span class="pm-value ${hasSaving ? "is-saving" : ""}">${hasSaving ? "✓ " + row[3] : "—"}</span>
+          </div>
+        </div>`;
+    }).join("");
+
+    // CTA strip
+    cards.innerHTML += `
+      <div class="ptable-mobile-cta">
+        <p>${getT("index.priceCta1", lang)}</p>
+        <div class="cta-btns">
+          <a href="product.html" class="btn-accent">${getT("index.priceCta2", lang)}</a>
+          <a href="checkout.html" class="btn-accent">${getT("index.priceCta3", lang)}</a>
+        </div>
+      </div>`;
+
+    wrap.appendChild(cards);
   }
 
   function stats() {
