@@ -491,6 +491,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 150);
   }
 
+  // Wire up ALL [data-lang] buttons — both desktop #lang and mobile #lang-mobile
   document.querySelectorAll("[data-lang]").forEach((button) => {
     button.addEventListener("click", function () {
       setLang(this.dataset.lang);
