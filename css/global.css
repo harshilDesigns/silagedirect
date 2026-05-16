@@ -319,14 +319,29 @@
   padding: var(--space-24) 0;
 }
 
-body.lang-hi {
+:lang(hi) {
   --font-body: "Hind", sans-serif;
   --font-heading: "Hind", sans-serif;
 }
 
-body.lang-gu {
-  --font-body: var(--font-body-guj);
-  --font-heading: var(--font-body-guj);
+:lang(gu) {
+  --font-body: "Baloo Bhai 2", sans-serif;
+  --font-heading: "Baloo Bhai 2", sans-serif;
+}
+
+:lang(hi), :lang(gu) {
+  font-weight: 400;
+}
+
+:lang(hi) h1, :lang(hi) h2, :lang(hi) h3, :lang(hi) h4, :lang(hi) h5, :lang(hi) h6,
+:lang(gu) h1, :lang(gu) h2, :lang(gu) h3, :lang(gu) h4, :lang(gu) h5, :lang(gu) h6,
+:lang(hi) .btn-primary, :lang(gu) .btn-primary,
+:lang(hi) .btn-accent, :lang(gu) .btn-accent,
+:lang(hi) .btn-gold, :lang(gu) .btn-gold,
+:lang(hi) .nav-cta, :lang(gu) .nav-cta,
+:lang(hi) strong, :lang(gu) strong,
+:lang(hi) b, :lang(gu) b {
+  font-weight: 600;
 }
 
 *,
@@ -566,30 +581,67 @@ h3 {
 .nav-logo {
   color: var(--clr-bg-white);
   font-family: var(--font-heading);
-  font-size: 1.25rem;
   font-weight: 700;
   text-decoration: none;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
   white-space: nowrap;
+  flex: 1;
 }
 
-@media (max-width: 380px) {
-  .nav-logo {
-    font-size: 1.1rem;
-  }
+.nav-logo .logo-img {
+  width: 36px;
+  height: auto;
+  display: block;
 }
 
-.nav-logo .logo-mark {
+.nav-logo .logo-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  line-height: 1.2;
+}
+
+.nav-logo .logo-line {
+  display: block;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.95rem;
+}
+
+.nav-logo .logo-line--top {
+  color: var(--clr-bg-white);
+}
+
+.nav-logo .logo-line--bottom {
   color: var(--clr-accent);
-  font-size: 1rem;
+}
+
+.nav-logo .logo-line--subtitle {
+  font-size: 0.6rem;
+  color: var(--clr-primary);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  line-height: 1.1;
+}
+
+.nav-logo.footer-logo {
+  gap: 10px;
+}
+
+.nav-logo.footer-logo .logo-img {
+  width: 28px;
+}
+
+.nav-logo.footer-logo .logo-line {
+  font-size: 0.85rem;
 }
 
 .nav-links {
   display: flex;
   gap: 1.75rem;
-  margin: 0 auto;
+  flex: 0 0 auto;
 }
 
 .nav-link {
@@ -612,6 +664,8 @@ h3 {
   display: flex;
   align-items: center;
   gap: 12px;
+  flex: 1;
+  justify-content: flex-end;
 }
 
 .lang {

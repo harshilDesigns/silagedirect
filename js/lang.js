@@ -38,6 +38,7 @@ export function applyLang(lang) {
   document.body.className = document.body.className
     .replace(/lang-\w+/g, "")
     .trim();
+  document.documentElement.lang = lang;
   document.body.classList.add("lang-" + lang);
   
   document.querySelectorAll("[data-i18n]").forEach((el) => {

@@ -448,7 +448,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const bales = document.getElementById("f-bales").value;
     const msg = document.getElementById("f-msg").value.trim();
     const status = document.getElementById("f-msg-status");
-    if (!name || !phone) {
+    if (!name || !phone || phone.length !== 10 || !village) {
       status.className = "form-msg error";
       status.textContent = getT("index.formErr", lang);
       return;

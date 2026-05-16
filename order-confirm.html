@@ -1,25 +1,42 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Order Confirmed – GauVardhan Feed</title>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%236B3A1F'/><text y='22' x='4' font-size='16'>GV</text></svg>">
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%236B3A1F'/><text y='22' x='4' font-size='16'>GV</text></svg>">
   <link rel="stylesheet" href="css/global.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700&family=Hind:wght@400;500;600&family=Hind+Vadodara:wght@400;500;600&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700&family=Hind:wght@400;600&family=Baloo+Bhai+2:wght@400;600&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="css/checkout.css">
 </head>
+
 <body class="confirm-page lang-en">
-  <header class="site-header" id="hdr"><div class="container"><nav class="nav-inner"><a href="index.html" class="nav-logo"><span class="logo-mark">■</span><span>GauVardhan Feed</span></a><div class="nav-right"><div class="lang" id="lang"><button class="active" data-lang="en">EN</button><button data-lang="hi">&#2361;&#2367;</button><button data-lang="gu">&#2711;&#2753;</button></div></div></nav></div></header>
+  <header class="site-header" id="hdr">
+    <div class="container">
+      <nav class="nav-inner"><a href="index.html" class="nav-logo"><img src="images/GV-LOGO.svg" alt="GauVardhan Feed"
+            class="logo-img"><span class="logo-text"><span class="logo-line logo-line--top">GauVardhan</span><span
+              class="logo-line logo-line--bottom">Feed</span></span></a>
+        <div class="nav-right">
+          <div class="lang" id="lang"><button class="active" data-lang="en">EN</button><button
+              data-lang="hi">&#2361;&#2367;</button><button data-lang="gu">&#2711;&#2753;</button></div>
+        </div>
+      </nav>
+    </div>
+  </header>
   <main class="container confirm-wrap">
     <div class="confirm-card">
       <div class="confirm-icon">OK</div>
       <h1 data-i18n="confirm.h1"></h1>
       <p class="confirm-sub"></p>
-      <div class="order-id-box"><span class="oid-label" data-i18n="checkout.details"></span><span class="oid-value" id="order-id">-</span></div>
-      
+      <div class="order-id-box"><span class="oid-label" data-i18n="checkout.details"></span><span class="oid-value"
+          id="order-id">-</span></div>
+
       <div class="confirm-next-steps">
         <h3 data-i18n="confirm.nextT"></h3>
         <ul id="next-steps-list"></ul>
@@ -34,4 +51,5 @@
   </main>
   <script type="module" src="js/confirm.js"></script>
 </body>
+
 </html>

@@ -35,29 +35,26 @@ function renderCart() {
 
   const itemsEl = document.getElementById("cart-items");
   const totalsEl = document.getElementById("summary-totals");
+  const emptyMsg = document.getElementById("empty-cart-msg");
   
   if (!cart.length) {
-    itemsEl.innerHTML = `
-      <div class="empty-cart-state">
-        <div class="empty-cart-icon">
-          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true">
-            <circle cx="24" cy="24" r="23" stroke="#D4E8C4" stroke-width="2"/>
-            <path d="M14 16h2l3 14h14l3-10H19" stroke="#1C3A1A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-            <circle cx="22" cy="33" r="1.5" fill="#1C3A1A"/>
-            <circle cx="31" cy="33" r="1.5" fill="#1C3A1A"/>
-          </svg>
-        </div>
-        <h3 class="empty-cart-title">${getT("checkout.empty", lang)}</h3>
-        <p class="empty-cart-sub">${getT("checkout.emptySub", lang)}</p>
-        <a href="product.html" class="btn-primary empty-cart-btn">${getT("checkout.browse", lang)}</a>
-      </div>`;
+    if (emptyMsg) emptyMsg.style.display = "block";
     totalsEl.style.display = "none";
     updatePlaceOrderState(true);
     return;
   }
+  if (emptyMsg) emptyMsg.style.display = "none";
   totalsEl.style.display = "block";
   updatePlaceOrderState(false);
-  itemsEl.innerHTML = cart.map(item => `<div class="cart-item"><div><span class="item-name">${item.name}</span><span class="item-weight">${item.weight}</span></div><div class="item-right"><span class="item-qty">x ${item.qty}</span><span class="item-price">₹${(item.price * item.qty).toLocaleString("en-IN")}</span></div></div>`).join("");
+  // Remove existing items except empty msg
+  const existingItems = itemsEl.querySelectorAll(".cart-item");
+  existingItems.forEach(item => item.remove());
+  cart.forEach(item => {
+    const itemEl = document.createElement("div");
+    itemEl.className = "cart-item";
+    itemEl.innerHTML = `<div><span class="item-name">${item.name}</span><span class="item-weight">${item.weight}</span></div><div class="item-right"><span class="item-qty">x ${item.qty}</span><span class="item-price">₹${(item.price * item.qty).toLocaleString("en-IN")}</span></div>`;
+    itemsEl.appendChild(itemEl);
+  });
   const total = getCartTotal();
   document.getElementById("subtotal").textContent = "₹" + total.toLocaleString("en-IN");
   document.getElementById("grand-total").textContent = "₹" + total.toLocaleString("en-IN");

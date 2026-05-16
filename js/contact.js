@@ -112,7 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const type = document.getElementById("f-type").value;
     const note = document.getElementById("f-msg").value.trim();
     const status = document.getElementById("fstatus");
-    if (!name || !phone) {
+    if (!name || !phone || phone.length !== 10 || !village) {
       status.className = "form-msg error";
       status.textContent = getT("contact.err", lang);
       return;
