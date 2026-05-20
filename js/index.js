@@ -208,21 +208,71 @@ document.addEventListener("DOMContentLoaded", () => {
               <small>/bale</small>
             </div>
           </div>
-          <div class="product-card__actions">
-            <button class="btn-premium add" data-i="${i}" ${d.s ? "" : "disabled"}>${getT("index.prodAdd", lang)}</button>
+          <div class="product-card__min-order" style="color: var(--clr-text-muted); font-size: 0.85rem; margin-top: 12px; display: flex; align-items: center; gap: 6px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
+            <span>${d.n === "Pro 100" ? "Minimum 12 bales &mdash; Starting from ₹10,800" : "Minimum 3 bales &mdash; Starting from ₹15,600"}</span>
+          </div>
+          <div class="product-card__actions" style="margin-top: 12px;">
+            <div class="qty-selector" style="display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 8px; background: var(--clr-bg-cream); padding: 6px; border-radius: var(--radius-md); border: 1px solid var(--clr-border);">
+               <button class="qty-minus" style="border:none; background:transparent; font-size:1.2rem; cursor:pointer; color:var(--clr-primary); width: 30px; font-weight: bold;" aria-label="Decrease quantity">-</button>
+               <input type="number" class="qty-input" value="${d.n === 'Pro 100' ? 12 : 3}" min="${d.n === 'Pro 100' ? 12 : 3}" style="width: 60px; text-align: center; border: 1px solid var(--clr-border); border-radius: 4px; padding: 4px; font-weight: 600;">
+               <button class="qty-plus" style="border:none; background:transparent; font-size:1.2rem; cursor:pointer; color:var(--clr-primary); width: 30px; font-weight: bold;" aria-label="Increase quantity">+</button>
+            </div>
+            <div class="min-qty-err" style="display:none; color: #a93226; font-size: 0.8rem; text-align: center; margin-bottom: 8px;"></div>
+            <button class="btn-premium add" data-i="${i}" data-name="${d.n}" ${d.s ? "" : "disabled"}>
+              🛒 ${getT("index.prodAdd", lang)}
+            </button>
             <a class="wa-link-premium" href="https://wa.me/919727007431?text=${encodeURIComponent(`Hi, I want to order ${d.n} maize silage bales.`)}" target="_blank" rel="noopener noreferrer">${getT("common.whatsappOrder", lang)}</a>
           </div>
         </div>
       </article>`).join("");
 
-    document.querySelectorAll(".add").forEach((button) => {
-      button.onclick = () => {
-        const index = Number(button.dataset.i);
+    document.querySelectorAll(".product-card").forEach((card) => {
+      const minus = card.querySelector(".qty-minus");
+      const plus = card.querySelector(".qty-plus");
+      const input = card.querySelector(".qty-input");
+      const addBtn = card.querySelector(".add");
+      const err = card.querySelector(".min-qty-err");
+      const minQty = addBtn.dataset.name === "Pro 100" ? 12 : 3;
+
+      const checkQty = (val) => {
+        if (val < minQty) {
+          err.textContent = `Minimum order for ${addBtn.dataset.name} is ${minQty} bales`;
+          err.style.display = "block";
+          return false;
+        }
+        err.style.display = "none";
+        return true;
+      };
+
+      minus.onclick = () => {
+        const val = parseInt(input.value, 10) || 0;
+        if (val > 1) input.value = val - 1;
+        checkQty(parseInt(input.value, 10));
+      };
+      plus.onclick = () => {
+        const val = parseInt(input.value, 10) || 0;
+        input.value = val + 1;
+        checkQty(parseInt(input.value, 10));
+      };
+      input.oninput = () => checkQty(parseInt(input.value, 10) || 0);
+
+      addBtn.onclick = () => {
+        const index = Number(addBtn.dataset.i);
         if (!data[index].s) return;
-        addToCart({ name: data[index].n, weight: data[index].w, price: data[index].p });
-        data[index].s -= 1;
+        
+        const qty = parseInt(input.value, 10) || 0;
+        if (!checkQty(qty)) return;
+
+        addToCart({ name: data[index].n, weight: data[index].w, price: data[index].p, qty });
+        data[index].s -= qty;
         updateCartBadge();
-        products();
+        
+        const original = addBtn.innerHTML;
+        addBtn.textContent = "✓ Added!";
+        setTimeout(() => { 
+          products(); 
+        }, 1500);
       };
     });
   }

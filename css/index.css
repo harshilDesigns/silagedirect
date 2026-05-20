@@ -905,6 +905,14 @@ img {
   border-radius: var(--radius-md);
   background: #25D366;
   color: var(--clr-bg-white);
+  transition: all 0.2s ease;
+}
+
+.wa-direct:hover {
+  background-color: #1e7a1e;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transition: all 0.2s ease;
 }
 
 .form-box h3 {
