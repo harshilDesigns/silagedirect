@@ -237,7 +237,7 @@ export const translations = {
       browse: "Browse Products",
       subtotal: "Subtotal",
       delivery: "Delivery",
-      deliveryVal: "To be confirmed",
+      deliveryVal: "Calculated after confirmation call",
       total: "Total",
       waOrderHeader: "NEW ORDER",
       waOrderId: "Order ID",

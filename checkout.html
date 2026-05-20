@@ -98,13 +98,44 @@
           <div class="frow2">
             <div class="fg"><label for="f-district" data-i18n="checkout.labels.district"></label><input type="text"
                 id="f-district" placeholder="Mehsana"></div>
-            <div class="fg"><label for="f-pincode" data-i18n="checkout.labels.pincode"></label><input type="text"
-                id="f-pincode" placeholder="384001" maxlength="6"></div>
+            <div class="fg"><label for="f-pincode">Pincode (optional)</label><input type="text" id="f-pincode"
+                placeholder="384001" maxlength="6"></div>
           </div>
           <div class="fg"><label for="f-notes" data-i18n="checkout.labels.notes"></label><textarea id="f-notes" rows="2"
-              placeholder="Best time to call, landmark, etc."></textarea></div><button class="btn-place-order"
-            id="place-order"><span id="btn-text" data-i18n="checkout.placeOrder"></span></button>
+              placeholder="Best time to call, landmark, etc."></textarea></div>
+
+          <div class="trust-badges"
+            style="display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; margin: 8px 0; font-size: 0.85rem; color: var(--clr-primary); font-weight: 600;">
+            <span>✓ No advance payment</span>
+            <span>✓ We call to confirm within 2 hours</span>
+            <span>✓ Cancel anytime</span>
+          </div>
+
+          <button class="btn-place-order" id="place-order"><span id="btn-text"
+              data-i18n="checkout.placeOrder"></span></button>
           <div class="form-msg" id="form-status"></div>
+        </div>
+
+        <div class="what-happens-next"
+          style="margin-top: 32px; border-top: 1px solid var(--clr-border); padding-top: 24px;">
+          <h3 style="font-size: 1.1rem; color: var(--clr-text-dark); margin-bottom: 16px;">What happens next?</h3>
+          <div class="whn-steps" style="display: flex; flex-direction: column; gap: 12px;">
+            <div class="whn-step" style="display: flex; align-items: center; gap: 12px;">
+              <span
+                style="background: var(--clr-primary-light); color: var(--clr-primary); width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.9rem; flex-shrink: 0;">1</span>
+              <span style="color: var(--clr-text-dark); font-weight: 500;">You place the order</span>
+            </div>
+            <div class="whn-step" style="display: flex; align-items: center; gap: 12px;">
+              <span
+                style="background: var(--clr-primary-light); color: var(--clr-primary); width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.9rem; flex-shrink: 0;">2</span>
+              <span style="color: var(--clr-text-dark); font-weight: 500;">We call to confirm within 2 hours</span>
+            </div>
+            <div class="whn-step" style="display: flex; align-items: center; gap: 12px;">
+              <span
+                style="background: var(--clr-primary-light); color: var(--clr-primary); width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.9rem; flex-shrink: 0;">3</span>
+              <span style="color: var(--clr-text-dark); font-weight: 500;">Bales delivered to your farm</span>
+            </div>
+          </div>
         </div>
       </section>
     </div>

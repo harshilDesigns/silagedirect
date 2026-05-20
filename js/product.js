@@ -64,7 +64,17 @@ document.addEventListener("DOMContentLoaded", () => {
           <div class="product-card__price">
             <div class="price-box"><strong>₹${d.p.toLocaleString("en-IN")}</strong><small>/bale</small></div>
           </div>
-          <div class="product-card__actions">
+          <div class="product-card__min-order" style="color: var(--clr-text-muted); font-size: 0.85rem; margin-top: 12px; display: flex; align-items: center; gap: 6px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
+            <span>${d.n === "Pro 100" ? "Minimum 12 bales &mdash; Starting from ₹10,800" : "Minimum 3 bales &mdash; Starting from ₹15,600"}</span>
+          </div>
+          <div class="product-card__actions" style="margin-top: 12px;">
+            <div class="qty-selector" style="display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 8px; background: var(--clr-bg-cream); padding: 6px; border-radius: var(--radius-md); border: 1px solid var(--clr-border);">
+               <button class="qty-minus" style="border:none; background:transparent; font-size:1.2rem; cursor:pointer; color:var(--clr-primary); width: 30px; font-weight: bold;" aria-label="Decrease quantity">-</button>
+               <input type="number" class="qty-input" value="${d.n === 'Pro 100' ? 12 : 3}" min="${d.n === 'Pro 100' ? 12 : 3}" style="width: 60px; text-align: center; border: 1px solid var(--clr-border); border-radius: 4px; padding: 4px; font-weight: 600;">
+               <button class="qty-plus" style="border:none; background:transparent; font-size:1.2rem; cursor:pointer; color:var(--clr-primary); width: 30px; font-weight: bold;" aria-label="Increase quantity">+</button>
+            </div>
+            <div class="min-qty-err" style="display:none; color: #a93226; font-size: 0.8rem; text-align: center; margin-bottom: 8px;"></div>
             <button class="btn-premium add-cart-btn" data-name="${d.n}" data-weight="${d.w}" data-price="${d.p}">
               🛒 ${getT("product.addCart", lang)}
             </button>
@@ -74,13 +84,45 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
       </article>`).join("");
 
-    document.querySelectorAll(".add-cart-btn").forEach(btn => {
-      btn.onclick = () => {
-        addToCart({ name: btn.dataset.name, weight: btn.dataset.weight, price: Number(btn.dataset.price) });
-        const original = btn.textContent;
-        btn.textContent = "✓ Added!";
+    document.querySelectorAll(".product-card").forEach(card => {
+      const minus = card.querySelector(".qty-minus");
+      const plus = card.querySelector(".qty-plus");
+      const input = card.querySelector(".qty-input");
+      const addBtn = card.querySelector(".add-cart-btn");
+      const err = card.querySelector(".min-qty-err");
+      const minQty = addBtn.dataset.name === "Pro 100" ? 12 : 3;
+
+      const checkQty = (val) => {
+        if (val < minQty) {
+          err.textContent = `Minimum order for ${addBtn.dataset.name} is ${minQty} bales`;
+          err.style.display = "block";
+          return false;
+        }
+        err.style.display = "none";
+        return true;
+      };
+
+      minus.onclick = () => {
+        const val = parseInt(input.value, 10) || 0;
+        if (val > 1) input.value = val - 1;
+        checkQty(parseInt(input.value, 10));
+      };
+      plus.onclick = () => {
+        const val = parseInt(input.value, 10) || 0;
+        input.value = val + 1;
+        checkQty(parseInt(input.value, 10));
+      };
+      input.oninput = () => checkQty(parseInt(input.value, 10) || 0);
+
+      addBtn.onclick = () => {
+        const qty = parseInt(input.value, 10) || 0;
+        if (!checkQty(qty)) return;
+
+        addToCart({ name: addBtn.dataset.name, weight: addBtn.dataset.weight, price: Number(addBtn.dataset.price), qty });
+        const original = addBtn.textContent;
+        addBtn.textContent = "✓ Added!";
         updateCartBadge();
-        setTimeout(() => { btn.textContent = original; }, 1500);
+        setTimeout(() => { addBtn.textContent = original; }, 1500);
       };
     });
   }
