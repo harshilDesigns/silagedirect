@@ -194,15 +194,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 150);
   }
 
-  const langEl = document.getElementById("lang");
-  if (langEl) {
-    langEl.onclick = e => {
-      const btn = e.target.closest("button");
-      if (!btn) return;
-      const l = btn.dataset.lang;
+  document.querySelectorAll("[data-lang]").forEach(button => {
+    button.addEventListener("click", () => {
+      const l = button.dataset.lang;
       if (l) setLang(l);
-    };
-  }
+    });
+  });
 
   window.addEventListener("scroll", () => {
     const hdr = document.getElementById("hdr");

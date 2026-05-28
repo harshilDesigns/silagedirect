@@ -451,7 +451,7 @@ h3 {
   border-radius: var(--radius-md);
   font-weight: 700;
   font-size: 1rem;
-  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: all 0.2s ease;
   cursor: pointer;
   border: 1px solid transparent;
   text-decoration: none;
@@ -498,9 +498,9 @@ h3 {
 }
 
 .btn-primary:hover {
-  background: var(--clr-primary-dark);
-  transform: translateY(-3px);
-  box-shadow: 0 12px 30px rgba(26, 58, 26, 0.2);
+  background: #1A5C1A;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .btn-accent, .btn-premium {
@@ -510,9 +510,9 @@ h3 {
 }
 
 .btn-accent:hover, .btn-premium:hover {
-  background: var(--clr-accent-gold);
-  transform: translateY(-3px);
-  box-shadow: 0 12px 30px rgba(232, 200, 74, 0.4);
+  background: #B8860B;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .btn-outline {
@@ -555,10 +555,8 @@ h3 {
 
 .site-header {
   background: var(--clr-primary);
-  position: sticky;
-  top: 0;
+  position: relative;
   z-index: 100;
-  box-shadow: var(--shadow-nav);
 }
 
 .nav-inner {
@@ -782,7 +780,7 @@ h3 {
   fill: var(--clr-bg-white);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .nav-inner {
     gap: 1rem;
     padding: 0 1rem;

@@ -184,13 +184,13 @@ function render() {
   renderCart();
 }
 
-document.getElementById("lang").onclick = (e) => {
-  const btn = e.target.closest("button");
-  if (!btn) return;
-  lang = btn.dataset.lang;
-  saveLang(lang);
-  render();
-};
+document.querySelectorAll("[data-lang]").forEach(button => {
+  button.addEventListener("click", () => {
+    lang = button.dataset.lang;
+    saveLang(lang);
+    render();
+  });
+});
 
 window.addEventListener("scroll", () => document.getElementById("hdr").classList.toggle("scrolled", scrollY > 12), { passive: true });
 

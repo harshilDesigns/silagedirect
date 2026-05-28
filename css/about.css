@@ -179,15 +179,7 @@ section {
   position: relative;
 }
 
-.tl-wrap::before {
-  content: "";
-  position: absolute;
-  left: 28px;
-  top: 8px;
-  bottom: 8px;
-  width: 1px;
-  background: var(--clr-border);
-}
+
 
 .titem {
   display: grid;

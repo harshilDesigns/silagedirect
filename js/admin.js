@@ -17,16 +17,25 @@ import {
   orderBy, query
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-// ── Change this to your own admin password ────
-const ADMIN_PASSWORD = "silage2026";
+// ── Stored SHA-256 hash (pre-computed, not plaintext) ────
+const ADMIN_PASSWORD_HASH = "d9a803731f41e2ef3bb4d796972e3430be06443c856d50958cf7f2533cfb8c5b";
+
+async function hashPassword(input) {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(input);
+  const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
+}
 
 let currentFilter = "all";
 let allOrders = [];
 
 // ── Password Gate ─────────────────────────────
-document.getElementById("gate-btn").onclick = () => {
+document.getElementById("gate-btn").onclick = async () => {
   const pwd = document.getElementById("gate-pwd").value;
-  if (pwd === ADMIN_PASSWORD) {
+  const inputHash = await hashPassword(pwd);
+  if (inputHash === ADMIN_PASSWORD_HASH) {
     document.getElementById("gate").style.display = "none";
     document.getElementById("admin-wrap").style.display = "block";
     loadOrders();

@@ -56,6 +56,7 @@ export function applyLang(lang) {
         el.textContent = value;
     }
   });
+  updateLangButtons(lang);
 }
 
 // Update the language toggle buttons to show correct active state

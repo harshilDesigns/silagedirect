@@ -139,17 +139,17 @@ document.addEventListener("DOMContentLoaded", () => {
     buildForm();
   }
 
-  document.getElementById("lang").onclick = e => {
-    const btn = e.target.closest("button");
-    if (!btn) return;
-    lang = btn.dataset.lang;
-    saveLang(lang);
-    document.body.classList.add("fade");
-    setTimeout(() => {
-      render();
-      document.body.classList.remove("fade");
-    }, 150);
-  };
+  document.querySelectorAll("[data-lang]").forEach(button => {
+    button.addEventListener("click", () => {
+      lang = button.dataset.lang;
+      saveLang(lang);
+      document.body.classList.add("fade");
+      setTimeout(() => {
+        render();
+        document.body.classList.remove("fade");
+      }, 150);
+    });
+  });
 
   window.addEventListener("scroll", () => {
     const hdr = document.getElementById("hdr");

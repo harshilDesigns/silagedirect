@@ -12,9 +12,9 @@ import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.0/firebas
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyDoByjP9G0_YUVld2xrdQInIhgcE4n8CUc",
-  authDomain: "GauVardhan Feed.firebaseapp.com",
-  projectId: "GauVardhan Feed",
-  storageBucket: "GauVardhan Feed.firebasestorage.app",
+  authDomain: "gauvardhan-feed.firebaseapp.com",
+  projectId: "gauvardhan-feed",
+  storageBucket: "gauvardhan-feed.firebasestorage.app",
   messagingSenderId: "259963755977",
   appId: "1:259963755977:web:5bdf31d9a8885d9b949c18"
 };

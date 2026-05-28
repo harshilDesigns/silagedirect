@@ -2,6 +2,12 @@ body {
   background: var(--clr-bg-white);
 }
 
+.site-header {
+  position: sticky;
+  top: 0;
+  box-shadow: var(--shadow-nav);
+}
+
 section {
   padding: var(--space-xl) 0;
 }
@@ -248,7 +254,7 @@ img {
   font-size: 0.95rem;
   font-weight: 700;
   letter-spacing: 0.01em;
-  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition: all 0.2s ease;
   box-shadow: 0 10px 24px rgba(201, 168, 50, 0.26);
   position: relative;
   overflow: hidden;
@@ -275,8 +281,9 @@ img {
 }
 
 .btn-gold:hover {
-  background: var(--clr-accent-dark);
-  transform: translateY(-1px);
+  background: #B8860B;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .hero-ghost-link {
@@ -300,6 +307,11 @@ img {
   font-size: 0.82rem;
   line-height: 1.65;
   max-width: 44ch;
+}
+
+.price-anchor {
+  color: #FFD700;
+  font-weight: 500;
 }
 
 .hero-proof-list {
