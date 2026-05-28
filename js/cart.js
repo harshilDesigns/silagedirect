@@ -87,7 +87,45 @@ export function updateCartBadge() {
   const count = getCartCount();
   el.textContent = count;
   el.style.display = count > 0 ? "grid" : "none";
+  updateStickyCartBar();
+}
+
+// ── Cart Toast ─────────────────────────────────
+let toastTimer = null;
+
+export function showCartToast(productName) {
+  if (window.location.pathname.includes("checkout") || window.location.pathname.includes("order-confirm")) return;
+  let toast = document.getElementById("cartToast");
+  if (!toast) {
+    toast = document.createElement("a");
+    toast.id = "cartToast";
+    toast.className = "cart-toast";
+    toast.href = "checkout.html";
+    toast.innerHTML = '<span id="cartToastMsg"></span>';
+    document.body.appendChild(toast);
+  }
+  const msg = document.getElementById("cartToastMsg");
+  msg.innerHTML = `✓ ${productName} added to cart — <strong>View Cart →</strong>`;
+  toast.classList.add("visible");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { toast.classList.remove("visible"); }, 3000);
+}
+
+// ── Sticky Bottom Cart Bar ────────────────────
+export function updateStickyCartBar() {
+  if (window.location.pathname.includes("checkout") || window.location.pathname.includes("order-confirm")) return;
+  const bar = document.getElementById("cartStickyBar");
+  if (!bar) return;
+  const cart = getCart();
+  const count = cart.reduce((s, i) => s + i.qty, 0);
+  if (count === 0) { bar.classList.remove("visible"); return; }
+  const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+  const countEl = document.getElementById("stickyCount");
+  const totalEl = document.getElementById("stickyTotal");
+  if (countEl) countEl.textContent = `${count} item${count !== 1 ? "s" : ""}`;
+  if (totalEl) totalEl.textContent = `₹${total.toLocaleString("en-IN")}`;
+  bar.classList.add("visible");
 }
 
 // ── Run badge update on page load ─────────────
-document.addEventListener("DOMContentLoaded", updateCartBadge);
+document.addEventListener("DOMContentLoaded", () => { updateCartBadge(); updateStickyCartBar(); });

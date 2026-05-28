@@ -1,5 +1,5 @@
 import { getSavedLang, saveLang, applyLang, updateLangButtons, getT } from "./lang.js";
-import { addToCart, updateCartBadge } from "./cart.js";
+import { addToCart, updateCartBadge, showCartToast } from "./cart.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   document.documentElement.classList.add("js");
@@ -122,6 +122,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const original = addBtn.textContent;
         addBtn.textContent = "✓ Added!";
         updateCartBadge();
+        showCartToast(addBtn.dataset.name);
         setTimeout(() => { addBtn.textContent = original; }, 1500);
       };
     });

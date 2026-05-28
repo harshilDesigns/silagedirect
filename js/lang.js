@@ -62,8 +62,12 @@ export function applyLang(lang) {
 // Update the language toggle buttons to show correct active state
 // Syncs both the desktop (#lang) and mobile nav (#lang-mobile) switchers
 export function updateLangButtons(lang) {
-  document.querySelectorAll("#lang [data-lang], #lang-mobile [data-lang]").forEach((button) => {
-    button.classList.toggle("active", button.dataset.lang === lang);
+  document.querySelectorAll("#lang button[data-lang], #lang-mobile button[data-lang]").forEach((button) => {
+    if (button.dataset.lang === lang) {
+      button.classList.add("active");
+    } else {
+      button.classList.remove("active");
+    }
   });
 }
 

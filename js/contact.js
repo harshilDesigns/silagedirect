@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
       <div class="cinfo-card">
         <div class="cinfo-icon">${card.i[0]}</div>
         <div>
-          <h3>${getT("contact.info." + card.i.toLowerCase() + ".l", lang)}</h3>
+          <h3>${info[card.i.toLowerCase()]?.l || card.i}</h3>
           <p><a href="${card.href}" target="_blank">${card.v}</a></p>
         </div>
       </div>`).join("");
