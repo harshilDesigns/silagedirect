@@ -155,9 +155,10 @@ document.getElementById("place-order").onclick = async () => {
   // 2. Open WhatsApp synchronously (before any await)
   window.open(waUrl, '_blank');
 
-  // 3. Then do async Firebase stuff
+  // 3. Firebase call (separate from redirect to ensure redirect always fires)
+  let orderRef;
   try {
-    const orderRef = await addDoc(collection(db, "orders"), {
+    orderRef = await addDoc(collection(db, "orders"), {
       name, phone, address, district, pincode, notes,
       items: cart.map(i => ({ name: i.name, weight: i.weight, qty: i.qty, price: i.price, subtotal: i.price * i.qty })),
       total: getCartTotal(),
@@ -165,15 +166,18 @@ document.getElementById("place-order").onclick = async () => {
       paymentMethod: "COD",
       createdAt: serverTimestamp()
     });
-
-    clearCart();
-    window.location.href = `order-confirm.html?id=${orderRef.id}&name=${encodeURIComponent(name)}`;
   } catch (err) {
     console.error(err);
     btn.disabled = false;
     document.getElementById("btn-text").textContent = getT("checkout.placeOrder", lang);
     showStatus("error", getT("checkout.errGeneral", lang));
+    return;
   }
+
+  // 4. Always fire after successful order
+  clearCart();
+  window.location.href = `order-confirm.html?id=${orderRef.id}&name=${encodeURIComponent(name)}`;
+  console.log("Redirecting to order-confirm.html?id=" + orderRef.id);
 };
 
 function render() {
