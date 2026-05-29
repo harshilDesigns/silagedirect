@@ -149,6 +149,8 @@ document.addEventListener("DOMContentLoaded", () => {
       <tbody>
         ${c.rows.map(r => `<tr>${r.map((v, i) => `<td${i > 0 ? ` class="${v === "✓" ? "check" : v === "✗" ? "cross" : ""}"` : ''}>${v}</td>`).join("")}</tr>`).join("")}
       </tbody>`;
+    const skel = el.parentElement?.querySelector(".skeleton-card");
+    if (skel) skel.style.display = "none";
   }
 
   function buildPrice() {
@@ -165,6 +167,8 @@ document.addEventListener("DOMContentLoaded", () => {
       <tbody>
         ${pr.r.map(r => `<tr><td>${r[0]}</td><td>${r[1]}</td><td class="hi">${r[2]}</td><td style="color:${r[3] === "—" ? "var(--clr-text-muted)" : "var(--clr-primary)"}">${r[3]}</td></tr>`).join("")}
       </tbody>`;
+    const skel = el.parentElement?.querySelector(".skeleton-card");
+    if (skel) skel.style.display = "none";
   }
 
   function updateWA() {

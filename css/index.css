@@ -5,6 +5,10 @@ body {
 .site-header {
   position: sticky;
   top: 0;
+  transition: box-shadow 0.3s ease;
+}
+
+.site-header.scrolled {
   box-shadow: var(--shadow-nav);
 }
 
@@ -219,7 +223,10 @@ section {
   font-weight: 700;
   color: var(--clr-primary);
 }
-html, body {
+html {
+  width: 100%;
+}
+body {
   overflow-x: hidden;
   width: 100%;
 }

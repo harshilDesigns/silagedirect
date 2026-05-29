@@ -2,6 +2,16 @@ body {
   background: var(--clr-bg-white);
 }
 
+.site-header {
+  position: sticky;
+  top: 0;
+  transition: box-shadow 0.3s ease;
+}
+
+.site-header.scrolled {
+  box-shadow: var(--shadow-nav);
+}
+
 .page-hero,
 section {
   padding: var(--space-xl) 0;
