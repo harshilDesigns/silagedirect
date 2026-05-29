@@ -143,9 +143,19 @@ document.getElementById("place-order").onclick = async () => {
   btn.disabled = true;
   document.getElementById("btn-text").textContent = getT("checkout.placing", lang);
 
-  // Open window synchronously before any async/await to prevent browser popup blockers
-  const waWindow = window.open('about:blank', '_blank');
+  // 1. Build message and URL BEFORE any async call
+  const localRef = Date.now().toString(36);
+  const itemsList = cart.map(i => `• ${i.name} × ${i.qty} = ₹${(i.price * i.qty).toLocaleString("en-IN")}`).join("\n");
+  const waHeader = getT("checkout.waOrderHeader", lang);
+  const waIdLabel = getT("checkout.waOrderId", lang);
+  const waTotalLabel = getT("checkout.waTotal", lang);
+  const waMessage = encodeURIComponent(`${waHeader}\n${waIdLabel}: ${localRef}\n\n${name}\n${phone}\n${address}, ${district} - ${pincode}\n${notes ? notes + "\n" : ""}\n${itemsList}\n\n${waTotalLabel}: ₹${getCartTotal().toLocaleString("en-IN")} (COD)`);
+  const waUrl = `https://wa.me/919727007431?text=${waMessage}`;
 
+  // 2. Open WhatsApp synchronously (before any await)
+  window.open(waUrl, '_blank');
+
+  // 3. Then do async Firebase stuff
   try {
     const orderRef = await addDoc(collection(db, "orders"), {
       name, phone, address, district, pincode, notes,
@@ -156,22 +166,10 @@ document.getElementById("place-order").onclick = async () => {
       createdAt: serverTimestamp()
     });
 
-    const itemsList = cart.map(i => `• ${i.name} × ${i.qty} = ₹${(i.price * i.qty).toLocaleString("en-IN")}`).join("\n");
-    
-    const waHeader = getT("checkout.waOrderHeader", lang);
-    const waIdLabel = getT("checkout.waOrderId", lang);
-    const waTotalLabel = getT("checkout.waTotal", lang);
-    
-    const waMessage = encodeURIComponent(`${waHeader}\n${waIdLabel}: ${orderRef.id}\n\n${name}\n${phone}\n${address}, ${district} - ${pincode}\n${notes ? notes + "\n" : ""}\n${itemsList}\n\n${waTotalLabel}: ₹${getCartTotal().toLocaleString("en-IN")} (COD)`);
-    
-    // Set actual WhatsApp URL on the pre-opened window
-    waWindow.location.href = `https://wa.me/919727007431?text=${waMessage}`;
-    
     clearCart();
     window.location.href = `order-confirm.html?id=${orderRef.id}&name=${encodeURIComponent(name)}`;
   } catch (err) {
     console.error(err);
-    waWindow.close(); // Close the blank window if error
     btn.disabled = false;
     document.getElementById("btn-text").textContent = getT("checkout.placeOrder", lang);
     showStatus("error", getT("checkout.errGeneral", lang));
