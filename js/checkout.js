@@ -187,9 +187,15 @@ document.getElementById("place-order").onclick = async () => {
 
   window.open(waUrl, '_blank');
 
-  let orderRef;
+  // Fallback redirect after 2 seconds regardless of Firebase
+  const redirectUrl = `order-confirm.html?id=${localRef}&name=${encodeURIComponent(name)}`;
+  const timeoutId = setTimeout(() => {
+    clearCart();
+    window.location.href = redirectUrl;
+  }, 2000);
+
   try {
-    orderRef = await addDoc(collection(db, "orders"), {
+    const orderRef = await addDoc(collection(db, "orders"), {
       name, phone, address, district, pincode, notes,
       items: cart.map(i => ({ name: i.name, weight: i.weight, qty: i.qty, price: i.price, subtotal: i.price * i.qty })),
       total: orderTotal,
@@ -197,12 +203,13 @@ document.getElementById("place-order").onclick = async () => {
       paymentMethod: "COD",
       createdAt: serverTimestamp()
     });
+    clearCart();
+    clearTimeout(timeoutId);
+    window.location.href = `order-confirm.html?id=${orderRef.id}&name=${encodeURIComponent(name)}`;
   } catch (err) {
     console.error("Firebase save failed:", err);
+    clearCart();
   }
-
-  clearCart();
-  window.location.href = `order-confirm.html?id=${orderRef?.id || localRef}&name=${encodeURIComponent(name)}`;
 };
 
 function render() {
