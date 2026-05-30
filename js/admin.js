@@ -13,7 +13,7 @@
 
 import { db } from "./firebase.js";
 import {
-  collection, getDocs, doc, updateDoc,
+  collection, getDocs, doc, getDoc, setDoc, updateDoc,
   orderBy, query
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
@@ -29,6 +29,7 @@ async function hashPassword(input) {
 }
 
 let currentFilter = "all";
+let searchTerm = "";
 let allOrders = [];
 
 // ── Password Gate ─────────────────────────────
@@ -39,6 +40,7 @@ document.getElementById("gate-btn").onclick = async () => {
     document.getElementById("gate").style.display = "none";
     document.getElementById("admin-wrap").style.display = "block";
     loadOrders();
+    loadSettings();
   } else {
     document.getElementById("gate-err").textContent = "Wrong password. Try again.";
   }
@@ -49,11 +51,122 @@ document.getElementById("gate-pwd").addEventListener("keydown", e => {
   if (e.key === "Enter") document.getElementById("gate-btn").click();
 });
 
+// ── Stats ────────────────────────────────────
+function computeStats() {
+  const pending = allOrders.filter(o => o.status === "pending").length;
+  const now = new Date();
+  const monthly = allOrders.filter(o => {
+    if (!o.createdAt?.toDate) return false;
+    const d = o.createdAt.toDate();
+    return d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear();
+  });
+  const monthRevenue = monthly.reduce((sum, o) => sum + (o.total || 0), 0);
+  const totalBales = allOrders.reduce((sum, o) => {
+    return sum + (o.items || []).reduce((s, i) => s + (i.qty || 0), 0);
+  }, 0);
+  const totalOrders = allOrders.length;
+  return { pending, monthRevenue, totalBales, totalOrders };
+}
+
+function renderStats() {
+  const s = computeStats();
+  const el = (id) => document.getElementById(id);
+  el("stat-pending").textContent = s.pending;
+  el("stat-revenue").textContent = "₹" + s.monthRevenue.toLocaleString("en-IN");
+  el("stat-bales").textContent = s.totalBales;
+  el("stat-orders").textContent = s.totalOrders;
+}
+
+// ── Settings: Load ───────────────────────────
+async function loadSettings() {
+  try {
+    const stockSnap = await getDoc(doc(db, "settings", "stock"));
+    if (stockSnap.exists()) {
+      const st = stockSnap.data();
+      document.getElementById("stock-pro100").value = st.pro100 ?? "";
+      document.getElementById("stock-max700").value = st.max700 ?? "";
+    }
+    const priceSnap = await getDoc(doc(db, "settings", "prices"));
+    if (priceSnap.exists()) {
+      const pr = priceSnap.data();
+      document.getElementById("price-pro100-t1").value = pr.pro100?.tier1 ?? "";
+      document.getElementById("price-pro100-t2").value = pr.pro100?.tier2 ?? "";
+      document.getElementById("price-pro100-t3").value = pr.pro100?.tier3 ?? "";
+      document.getElementById("price-max700-t1").value = pr.max700?.tier1 ?? "";
+      document.getElementById("price-max700-t2").value = pr.max700?.tier2 ?? "";
+      document.getElementById("price-max700-t3").value = pr.max700?.tier3 ?? "";
+    }
+    const batchSnap = await getDoc(doc(db, "settings", "batch"));
+    if (batchSnap.exists()) {
+      const b = batchSnap.data();
+      document.getElementById("batch-number").value = b.batchNumber ?? "";
+      document.getElementById("batch-harvest").value = b.harvestDate ?? "";
+      document.getElementById("batch-fresh").checked = b.freshBatch ?? false;
+    }
+  } catch (e) {
+    console.warn("Failed to load settings:", e);
+  }
+}
+
+// ── Settings: Save ───────────────────────────
+document.getElementById("save-stock").onclick = async () => {
+  const data = {
+    pro100: parseInt(document.getElementById("stock-pro100").value) || 0,
+    max700: parseInt(document.getElementById("stock-max700").value) || 0
+  };
+  try {
+    await setDoc(doc(db, "settings", "stock"), data);
+    alert("Stock saved.");
+  } catch (e) {
+    alert("Failed to save stock: " + e.message);
+  }
+};
+
+document.getElementById("save-prices").onclick = async () => {
+  const data = {
+    pro100: {
+      tier1: parseInt(document.getElementById("price-pro100-t1").value) || 0,
+      tier2: parseInt(document.getElementById("price-pro100-t2").value) || 0,
+      tier3: parseInt(document.getElementById("price-pro100-t3").value) || 0
+    },
+    max700: {
+      tier1: parseInt(document.getElementById("price-max700-t1").value) || 0,
+      tier2: parseInt(document.getElementById("price-max700-t2").value) || 0,
+      tier3: parseInt(document.getElementById("price-max700-t3").value) || 0
+    }
+  };
+  try {
+    await setDoc(doc(db, "settings", "prices"), data);
+    alert("Prices saved.");
+  } catch (e) {
+    alert("Failed to save prices: " + e.message);
+  }
+};
+
+document.getElementById("save-batch").onclick = async () => {
+  const data = {
+    batchNumber: document.getElementById("batch-number").value,
+    harvestDate: document.getElementById("batch-harvest").value,
+    freshBatch: document.getElementById("batch-fresh").checked
+  };
+  try {
+    await setDoc(doc(db, "settings", "batch"), data);
+    alert("Batch saved.");
+  } catch (e) {
+    alert("Failed to save batch: " + e.message);
+  }
+};
+
+// ── Settings Toggle ──────────────────────────
+document.getElementById("settings-toggle").onclick = () => {
+  const body = document.getElementById("settings-body");
+  const toggle = document.getElementById("settings-toggle");
+  const isOpen = body.style.display !== "none";
+  body.style.display = isOpen ? "none" : "block";
+  toggle.textContent = isOpen ? "⚙ Site Settings ▸" : "⚙ Site Settings ▾";
+};
+
 // ── Load Orders from Firestore ─────────────────
-// LEARNING: getDocs() fetches a snapshot of the
-// entire collection. We then loop through each
-// document with .forEach() and build our array.
-// query() + orderBy() sorts by creation time.
 async function loadOrders() {
   document.getElementById("orders-body").innerHTML =
     '<tr><td colspan="9" class="loading-row">Loading orders...</td></tr>';
@@ -76,16 +189,26 @@ async function loadOrders() {
 
 // ── Render Table ──────────────────────────────
 function renderTable() {
-  const filtered = currentFilter === "all"
+  let filtered = currentFilter === "all"
     ? allOrders
     : allOrders.filter(o => o.status === currentFilter);
+
+  if (searchTerm) {
+    const term = searchTerm.toLowerCase();
+    filtered = filtered.filter(o =>
+      (o.name || "").toLowerCase().includes(term) ||
+      (o.phone || "").includes(term)
+    );
+  }
 
   document.getElementById("order-count").textContent =
     `${filtered.length} order${filtered.length !== 1 ? "s" : ""} ${currentFilter !== "all" ? `(${currentFilter})` : ""}`;
 
   if (filtered.length === 0) {
+    const msg = searchTerm ? "No orders matching your search." : "No orders found.";
     document.getElementById("orders-body").innerHTML =
-      '<tr><td colspan="9" class="loading-row">No orders found.</td></tr>';
+      `<tr><td colspan="9" class="loading-row">${msg}</td></tr>`;
+    renderStats();
     return;
   }
 
@@ -130,12 +253,10 @@ function renderTable() {
   document.querySelectorAll(".deliver-btn").forEach(btn => {
     btn.onclick = () => updateStatus(btn.dataset.id, "delivered");
   });
+  renderStats();
 }
 
 // ── Update Order Status ───────────────────────
-// LEARNING: updateDoc() updates specific fields in
-// an existing document without overwriting everything.
-// doc(db, "orders", id) points to the exact document.
 async function updateStatus(id, newStatus) {
   try {
     await updateDoc(doc(db, "orders", id), { status: newStatus });
@@ -159,5 +280,22 @@ document.querySelectorAll(".filter-btn").forEach(btn => {
   };
 });
 
+// ── Search ───────────────────────────────────
+document.getElementById("search-input").addEventListener("input", e => {
+  searchTerm = e.target.value;
+  document.getElementById("search-clear").style.display = searchTerm ? "block" : "none";
+  renderTable();
+});
+
+document.getElementById("search-clear").onclick = () => {
+  document.getElementById("search-input").value = "";
+  searchTerm = "";
+  document.getElementById("search-clear").style.display = "none";
+  renderTable();
+};
+
 // ── Refresh Button ────────────────────────────
-document.getElementById("refresh-btn").onclick = loadOrders;
+document.getElementById("refresh-btn").onclick = () => {
+  loadOrders();
+  loadSettings();
+};

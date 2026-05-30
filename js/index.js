@@ -1,7 +1,9 @@
 import { getSavedLang, saveLang, applyLang, updateLangButtons, getT } from "./lang.js";
 import { addToCart, updateCartBadge, showCartToast } from "./cart.js";
+import { db } from "./firebase.js";
+import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   document.documentElement.classList.add("js");
 
   const data = [
@@ -11,6 +13,47 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let lang = getSavedLang();
   const app = document.getElementById("app");
+  let firestoreBatch = null;
+
+  async function loadFirestoreData() {
+    try {
+      const [stockSnap, priceSnap, batchSnap] = await Promise.all([
+        getDoc(doc(db, "settings", "stock")),
+        getDoc(doc(db, "settings", "prices")),
+        getDoc(doc(db, "settings", "batch"))
+      ]);
+      if (stockSnap.exists()) {
+        const st = stockSnap.data();
+        data.forEach(d => {
+          if (d.n === "Pro 100" && st.pro100 != null) d.s = st.pro100;
+          if (d.n === "Max 700" && st.max700 != null) d.s = st.max700;
+        });
+      }
+      if (priceSnap.exists()) {
+        const pr = priceSnap.data();
+        data.forEach(d => {
+          if (d.n === "Pro 100" && pr.pro100?.tier1 != null) d.p = pr.pro100.tier1;
+          if (d.n === "Max 700" && pr.max700?.tier1 != null) d.p = pr.max700.tier1;
+        });
+      }
+      if (batchSnap.exists()) {
+        firestoreBatch = batchSnap.data();
+      }
+    } catch (e) {
+      console.warn("Firestore fetch failed, using hardcoded values", e);
+    }
+  }
+
+  function updateHeroBadge() {
+    if (!firestoreBatch) return;
+    const badge = document.querySelector(".hero-badge-text");
+    if (!badge) return;
+    badge.removeAttribute("data-i18n");
+    const text = firestoreBatch.batchNumber
+      ? `Fresh harvest window · Batch ${firestoreBatch.batchNumber}`
+      : "Fresh harvest window";
+    badge.textContent = text;
+  }
 
   function initMobileNav() {
     const toggle = document.getElementById("nav-toggle");
@@ -528,6 +571,7 @@ document.addEventListener("DOMContentLoaded", () => {
     updateWALinks();
     buildForm();
     setupStatsObserver();
+    updateHeroBadge();
   }
 
   function setLang(nextLang) {
@@ -563,6 +607,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }, { threshold: 0.12 });
   document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
 
+  await loadFirestoreData();
   initMobileNav();
   initHeaderScroll();
   initHeroParallax();

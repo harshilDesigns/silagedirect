@@ -22,7 +22,44 @@
   </div>
   <div class="admin-wrap" id="admin-wrap" style="display:none">
     <header class="admin-header"><div class="admin-logo">GauVardhan Feed - Orders</div><div class="admin-meta"><span id="order-count">Loading...</span><button class="btn-refresh" id="refresh-btn">Refresh</button></div></header>
+    <div class="stats-bar" id="stats-bar">
+      <div class="stat-card"><span class="stat-label">Pending Orders</span><span class="stat-value" id="stat-pending">0</span></div>
+      <div class="stat-card"><span class="stat-label">This Month Revenue</span><span class="stat-value" id="stat-revenue">₹0</span></div>
+      <div class="stat-card"><span class="stat-label">Total Bales Sold</span><span class="stat-value" id="stat-bales">0</span></div>
+      <div class="stat-card"><span class="stat-label">Total Orders</span><span class="stat-value" id="stat-orders">0</span></div>
+    </div>
+    <div class="settings-panel" id="settings-panel">
+      <button class="settings-toggle" id="settings-toggle">⚙ Site Settings ▾</button>
+      <div class="settings-body" id="settings-body" style="display:none">
+        <div class="settings-grid">
+          <div class="settings-col">
+            <h3>Stock</h3>
+            <div class="setting-row"><label>Pro 100</label><input type="number" id="stock-pro100" class="setting-input"></div>
+            <div class="setting-row"><label>Max 700</label><input type="number" id="stock-max700" class="setting-input"></div>
+            <button class="setting-btn" id="save-stock">Save Stock</button>
+          </div>
+          <div class="settings-col">
+            <h3>Prices</h3>
+            <div class="setting-row"><label>Pro 100 (1-11 bales)</label><input type="number" id="price-pro100-t1" class="setting-input"></div>
+            <div class="setting-row"><label>Pro 100 (12-50 bales)</label><input type="number" id="price-pro100-t2" class="setting-input"></div>
+            <div class="setting-row"><label>Pro 100 (51+ bales)</label><input type="number" id="price-pro100-t3" class="setting-input"></div>
+            <div class="setting-row"><label>Max 700 (1-5 bales)</label><input type="number" id="price-max700-t1" class="setting-input"></div>
+            <div class="setting-row"><label>Max 700 (6-20 bales)</label><input type="number" id="price-max700-t2" class="setting-input"></div>
+            <div class="setting-row"><label>Max 700 (21+ bales)</label><input type="number" id="price-max700-t3" class="setting-input"></div>
+            <button class="setting-btn" id="save-prices">Save Prices</button>
+          </div>
+          <div class="settings-col">
+            <h3>Batch</h3>
+            <div class="setting-row"><label>Batch Number</label><input type="text" id="batch-number" class="setting-input" style="width:140px;flex:1;text-align:left"></div>
+            <div class="setting-row"><label>Harvest Date</label><input type="date" id="batch-harvest" class="setting-input" style="width:140px;flex:1"></div>
+            <div class="setting-row"><label>Fresh Batch</label><label class="toggle"><input type="checkbox" id="batch-fresh"><span class="toggle-slider"></span></label></div>
+            <button class="setting-btn" id="save-batch">Save Batch</button>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="filters"><button class="filter-btn active" data-status="all">All</button><button class="filter-btn" data-status="pending">Pending</button><button class="filter-btn" data-status="confirmed">Confirmed</button><button class="filter-btn" data-status="delivered">Delivered</button></div>
+    <div class="search-bar"><input type="text" id="search-input" class="search-input" placeholder="Search by farmer name or phone..."><button class="search-clear" id="search-clear" style="display:none">✕</button></div>
     <div class="table-wrap"><table class="orders-table" id="orders-table"><thead><tr><th>Order ID</th><th>Date</th><th>Farmer</th><th>Phone</th><th>Location</th><th>Items</th><th>Total</th><th>Status</th><th>Actions</th></tr></thead><tbody id="orders-body"><tr><td colspan="9" class="loading-row">Loading orders...</td></tr></tbody></table></div>
   </div>
   <script type="module" src="js/admin.js"></script>

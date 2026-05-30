@@ -1,7 +1,9 @@
 import { getSavedLang, saveLang, applyLang, updateLangButtons, getT } from "./lang.js";
 import { addToCart, updateCartBadge, showCartToast } from "./cart.js";
+import { db } from "./firebase.js";
+import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   document.documentElement.classList.add("js");
 
   const data = [
@@ -10,6 +12,29 @@ document.addEventListener("DOMContentLoaded", () => {
   ];
 
   let lang = getSavedLang();
+
+  async function loadFirestoreData() {
+    try {
+      const stockSnap = await getDoc(doc(db, "settings", "stock"));
+      if (stockSnap.exists()) {
+        const st = stockSnap.data();
+        data.forEach(d => {
+          if (d.n === "Pro 100" && st.pro100 != null) d.s = st.pro100;
+          if (d.n === "Max 700" && st.max700 != null) d.s = st.max700;
+        });
+      }
+      const priceSnap = await getDoc(doc(db, "settings", "prices"));
+      if (priceSnap.exists()) {
+        const pr = priceSnap.data();
+        data.forEach(d => {
+          if (d.n === "Pro 100" && pr.pro100?.tier1 != null) d.p = pr.pro100.tier1;
+          if (d.n === "Max 700" && pr.max700?.tier1 != null) d.p = pr.max700.tier1;
+        });
+      }
+    } catch (e) {
+      console.warn("Firestore fetch failed, using hardcoded values", e);
+    }
+  }
 
   function initMobileNav() {
     const toggle = document.getElementById("nav-toggle");
@@ -214,6 +239,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add("in") }), { threshold: .15 });
   document.querySelectorAll(".reveal").forEach(e => io.observe(e));
 
+  await loadFirestoreData();
   render();
   initMobileNav();
   updateCartBadge();
