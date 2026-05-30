@@ -69,9 +69,11 @@
       <section class="order-summary">
         <h2 data-i18n="checkout.title"></h2>
         <div id="cart-items">
-          <div class="empty-cart" id="empty-cart-msg">
-            <p>🛒 Your cart is empty.</p>
-            <a href="product.html" class="btn-primary">Browse Products</a>
+          <div class="empty-cart-state" id="empty-cart-msg">
+            <div class="empty-cart-icon">🛒</div>
+            <p class="empty-cart-title" data-i18n="checkout.empty">Your cart is empty</p>
+            <p class="empty-cart-sub" data-i18n="checkout.emptySub">You haven't added any bales yet. Browse our products and add to cart.</p>
+            <a href="product.html" class="btn-primary empty-cart-btn" data-i18n="checkout.browse">Browse Products</a>
           </div>
         </div>
         <div class="summary-totals" id="summary-totals">
@@ -98,7 +100,7 @@
           <div class="frow2">
             <div class="fg"><label for="f-district" data-i18n="checkout.labels.district"></label><input type="text"
                 id="f-district" placeholder="Mehsana"></div>
-            <div class="fg"><label for="f-pincode">Pincode (optional)</label><input type="text" id="f-pincode"
+            <div class="fg"><label for="f-pincode" data-i18n="checkout.labels.pincode">Pincode (optional)</label><input type="text" id="f-pincode"
                 placeholder="384001" maxlength="6"></div>
           </div>
           <div class="fg"><label for="f-notes" data-i18n="checkout.labels.notes"></label><textarea id="f-notes" rows="2"
@@ -111,7 +113,7 @@
             <span>✓ Cancel anytime</span>
           </div>
 
-          <button class="btn-place-order" id="place-order"><span id="btn-text"
+          <button class="btn-place-order" id="place-order"><span class="spinner"></span><span id="btn-text"
               data-i18n="checkout.placeOrder"></span></button>
           <div class="form-msg" id="form-status"></div>
         </div>

@@ -3,8 +3,8 @@ import { getCart, getCartTotal, clearCart, updateCartBadge, updateQty } from "./
 import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 import { getSavedLang, saveLang, applyLang, updateLangButtons, getT } from "./lang.js";
 
-
 let lang = getSavedLang();
+let isSubmitting = false;
 
 function initMobileNav() {
   const toggle = document.getElementById("nav-toggle");
@@ -29,14 +29,39 @@ function updatePlaceOrderState(isDisabled) {
   button.classList.toggle("is-disabled", isDisabled);
 }
 
+function setFormEnabled(enabled) {
+  document.querySelectorAll("#f-name, #f-phone, #f-address, #f-district, #f-pincode, #f-notes").forEach(el => {
+    el.disabled = !enabled;
+  });
+}
+
+function setLoading(loading) {
+  const btn = document.getElementById("place-order");
+  const text = document.getElementById("btn-text");
+  if (!btn || !text) return;
+  btn.disabled = loading;
+  btn.classList.toggle("is-loading", loading);
+  text.textContent = loading ? getT("checkout.placing", lang) : getT("checkout.placeOrder", lang);
+}
+
+function showFieldError(fieldId) {
+  const el = document.getElementById(fieldId);
+  if (!el) el = document.querySelector(`#${fieldId}`);
+  if (el) el.classList.add("field-error");
+}
+
+function clearFieldErrors() {
+  document.querySelectorAll(".field-error").forEach(el => el.classList.remove("field-error"));
+}
+
 function renderCart() {
+  if (isSubmitting) return;
   const cart = getCart();
   updateCartBadge();
 
   const itemsEl = document.getElementById("cart-items");
   const totalsEl = document.getElementById("summary-totals");
   const emptyMsg = document.getElementById("empty-cart-msg");
-  // Remove existing items except empty msg
   const existingItems = itemsEl.querySelectorAll(".cart-item");
   existingItems.forEach(item => item.remove());
 
@@ -127,6 +152,9 @@ function showStatus(type, msg) {
 }
 
 document.getElementById("place-order").onclick = async () => {
+  if (isSubmitting) return;
+  clearFieldErrors();
+
   const name = document.getElementById("f-name").value.trim();
   const phone = document.getElementById("f-phone").value.trim();
   const address = document.getElementById("f-address").value.trim();
@@ -135,49 +163,46 @@ document.getElementById("place-order").onclick = async () => {
   const notes = document.getElementById("f-notes").value.trim();
   const cart = getCart();
 
-  if (!name || !phone) return showStatus("error", getT("checkout.errNamePhone", lang));
-  if (!address) return showStatus("error", getT("checkout.errAddressPin", lang));
   if (!cart.length) return showStatus("error", getT("checkout.errCart", lang));
 
-  const btn = document.getElementById("place-order");
-  btn.disabled = true;
-  document.getElementById("btn-text").textContent = getT("checkout.placing", lang);
+  let valid = true;
+  if (!name) { showFieldError("f-name"); valid = false; }
+  if (!phone || !/^\d{10}$/.test(phone)) { showFieldError("f-phone"); valid = false; }
+  if (!address) { showFieldError("f-address"); valid = false; }
+  if (!valid) return showStatus("error", getT("checkout.errNamePhone", lang));
 
-  // 1. Build message and URL BEFORE any async call
+  isSubmitting = true;
+  setFormEnabled(false);
+  setLoading(true);
+  showStatus("", "");
+
+  const orderTotal = getCartTotal();
   const localRef = Date.now().toString(36);
   const itemsList = cart.map(i => `• ${i.name} × ${i.qty} = ₹${(i.price * i.qty).toLocaleString("en-IN")}`).join("\n");
   const waHeader = getT("checkout.waOrderHeader", lang);
   const waIdLabel = getT("checkout.waOrderId", lang);
   const waTotalLabel = getT("checkout.waTotal", lang);
-  const waMessage = encodeURIComponent(`${waHeader}\n${waIdLabel}: ${localRef}\n\n${name}\n${phone}\n${address}, ${district} - ${pincode}\n${notes ? notes + "\n" : ""}\n${itemsList}\n\n${waTotalLabel}: ₹${getCartTotal().toLocaleString("en-IN")} (COD)`);
+  const waMessage = encodeURIComponent(`${waHeader}\n${waIdLabel}: ${localRef}\n\n${name}\n${phone}\n${address}, ${district} - ${pincode}\n${notes ? notes + "\n" : ""}\n${itemsList}\n\n${waTotalLabel}: ₹${orderTotal.toLocaleString("en-IN")} (COD)`);
   const waUrl = `https://wa.me/919727007431?text=${waMessage}`;
 
-  // 2. Open WhatsApp synchronously (before any await)
   window.open(waUrl, '_blank');
 
-  // 3. Firebase call (separate from redirect to ensure redirect always fires)
   let orderRef;
   try {
     orderRef = await addDoc(collection(db, "orders"), {
       name, phone, address, district, pincode, notes,
       items: cart.map(i => ({ name: i.name, weight: i.weight, qty: i.qty, price: i.price, subtotal: i.price * i.qty })),
-      total: getCartTotal(),
+      total: orderTotal,
       status: "pending",
       paymentMethod: "COD",
       createdAt: serverTimestamp()
     });
   } catch (err) {
-    console.error(err);
-    btn.disabled = false;
-    document.getElementById("btn-text").textContent = getT("checkout.placeOrder", lang);
-    showStatus("error", getT("checkout.errGeneral", lang));
-    return;
+    console.error("Firebase save failed:", err);
   }
 
-  // 4. Always fire after successful order
   clearCart();
-  window.location.href = `order-confirm.html?id=${orderRef.id}&name=${encodeURIComponent(name)}`;
-  console.log("Redirecting to order-confirm.html?id=" + orderRef.id);
+  window.location.href = `order-confirm.html?id=${orderRef?.id || localRef}&name=${encodeURIComponent(name)}`;
 };
 
 function render() {
